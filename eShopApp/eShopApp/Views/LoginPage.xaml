@@ -3,13 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:eShopApp.Converters"
              mc:Ignorable="d"
-             x:Class="eShopApp.Views.LoginPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+             x:Class="eShopApp.Views.LoginPage"
+             BackgroundColor="GreenYellow"
+             NavigationPage.HasNavigationBar="False">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <local:StringToBoolConverter x:Key="StringBoolConverter"/>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <StackLayout Spacing="10"
+                 VerticalOptions="Center"
+                 HorizontalOptions="Center"
+                 Orientation="Vertical">
+
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="Center">
+
+            <Image Source="cart.png"
+                   WidthRequest="15"
+                   HeightRequest="15"/>
+
+            <Label Text="eShop.com" 
+                   TextColor="Black"/>
         </StackLayout>
-    </ContentPage.Content>
+
+        <Entry Placeholder="Enter username..."
+               FontSize="Micro"
+               TextColor="Gray"
+               BackgroundColor="White"
+               WidthRequest="200"
+               Text="{Binding Username}"/>
+
+        <Button x:Name="loginBtn"
+                Text="Login"
+                FontSize="Micro"
+                Padding="0,5,0,5"
+                BackgroundColor="Yellow"
+                BorderColor="Black"
+                BorderWidth="1"
+                HeightRequest="30"
+                CornerRadius="0"
+                IsEnabled="{Binding Path=Username,
+                                    Converter={StaticResource Key=StringBoolConverter}}"
+                Command="{Binding LoginCommand}"
+                />
+    </StackLayout>
+
 </ContentPage>
