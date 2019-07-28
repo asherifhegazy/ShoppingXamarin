@@ -47,7 +47,10 @@ namespace eShopApp.ViewModels
             var result = _userService.IsUserExists(Username);
 
             if (result)
+            {
+                Global.UserName = Username;
                 _pageService.PushAsync(new ProductsPage());
+            }
             else
                 _pageService.DisplayAlert("Login", "Username Isn't correct", "OK", "Cancel");
         }
