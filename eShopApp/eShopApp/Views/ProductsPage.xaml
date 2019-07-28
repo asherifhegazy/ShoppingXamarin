@@ -5,12 +5,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="eShopApp.Views.ProductsPage"
-             NavigationPage.HasBackButton="False">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             NavigationPage.HasNavigationBar="False">
+
+    <StackLayout Orientation="Horizontal"
+                 VerticalOptions="Start"
+                 HorizontalOptions="FillAndExpand"
+                 Padding="10,5,10,5"
+                 BackgroundColor="GreenYellow">
+        
+        <Label Text="ahmed"
+               VerticalOptions="Start"
+               TextColor="Black"/>
+    </StackLayout>
 </ContentPage>
