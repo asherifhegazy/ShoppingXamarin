@@ -1,4 +1,6 @@
-﻿using System;
+﻿using eShopApp.Services;
+using eShopApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +14,14 @@ namespace eShopApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProductDetailsPage : ContentPage
     {
+        public ProductDetailsPageViewModel ProductDetailsPageViewModel { get; set; }
         public ProductDetailsPage(int id)
         {
             InitializeComponent();
+
+            ProductDetailsPageViewModel = new ProductDetailsPageViewModel(id, new ProductService(), new PageService());
+
+            BindingContext = ProductDetailsPageViewModel;
         }
     }
 }
