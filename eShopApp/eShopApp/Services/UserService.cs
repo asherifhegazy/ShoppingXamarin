@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace eShopApp.Services
 {
     public class UserService : IUserService
     {
-        ObservableCollection<User> Users = new ObservableCollection<User>
+        IList<User> Users = new List<User>
         {
             new User
             {
@@ -27,7 +28,7 @@ namespace eShopApp.Services
             }
         };
 
-        public ObservableCollection<User> GetUsers()
+        public IList<User> GetUsers()
         {
             return Users;
         }

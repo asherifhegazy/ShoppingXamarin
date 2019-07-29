@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:eShopApp.Converters"
              mc:Ignorable="d"
              x:Class="eShopApp.Views.LoginPage"
-             BackgroundColor="GreenYellow"
+             BackgroundColor="#A1FF75"
              NavigationPage.HasNavigationBar="False">
 
     <Page.Resources>

@@ -10,7 +10,7 @@
                  VerticalOptions="Start"
                  HorizontalOptions="FillAndExpand"
                  Padding="10,8,10,8"
-                 BackgroundColor="GreenYellow">
+                 BackgroundColor="#A1FF75">
 
         <Label Text="{Binding Username}"
                HorizontalOptions="StartAndExpand"

@@ -17,8 +17,8 @@ namespace eShopApp
             {
                 return App.Current.Properties[key].ToString();
             }
-            else
-                return null;
+
+            return null;
         }
 
         private static void SetProperty(string key, string value)

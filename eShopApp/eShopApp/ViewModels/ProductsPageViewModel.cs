@@ -7,12 +7,13 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace eShopApp.ViewModels
 {
     public class ProductsPageViewModel : BaseViewModel
     {
-        public ObservableCollection<Product> Products { get; set; }
+        public IList<Product> Products { get; set; }
 
         private readonly IProductService _productService;
         private readonly IPageService _pageService;
@@ -23,7 +24,7 @@ namespace eShopApp.ViewModels
             _productService = productService;
             _pageService = pageService;
 
-            Products = _productService.GetProducts();
+            Products = _productService.GetProductsOrderedByPrice();
 
             OnItemSelectedCommand = new Command<object>(OnSelectedItem);
         }

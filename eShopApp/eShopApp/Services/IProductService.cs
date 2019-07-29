@@ -1,13 +1,13 @@
 ﻿using eShopApp.Models;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Text;
 
 namespace eShopApp.Services
 {
     public interface IProductService
     {
-        ObservableCollection<Product> GetProducts();
+        IList<Product> GetProductsOrderedByPrice();
 
         Product GetProductById(int id);
     }

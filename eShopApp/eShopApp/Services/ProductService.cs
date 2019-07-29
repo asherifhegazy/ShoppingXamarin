@@ -9,7 +9,7 @@ namespace eShopApp.Services
 {
     public class ProductService : IProductService
     {
-        private readonly ObservableCollection<Product> Products = new ObservableCollection<Product>
+        private readonly IList<Product> Products = new List<Product>
         {
             new Product
             {
@@ -52,7 +52,7 @@ namespace eShopApp.Services
                 Id = 3,
                 Name = "LG Smart TV 56\"",
                 Description = "This LG LED TV offers unmatched entertainment. With the resolution of 1920 x 1080 pixels, this 43inch TV renders clear and detailed images so that you don’t miss out even on minutest of details. The top-notch dynamic color processing technology brings images to life. Thanks to the Virtual surround sound, this LG TV recreates the exceptional sound, thereby making your favorite sporting events all the more fun. With HDMI and USB port, you can connect entertainment devices to your TV. The eye-catching frames add a touch of modernity to this LG FHD TV. With built-in HD receiver, you are set to enjoy HD content immediately without any additional external support. The slim construction of this LG TV makes it a must-have for your living room.",
-                Price=  1500,
+                Price=  500,
                 Quantity= 15,
                 ImagePosterUrl = "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
                 CreatedDate = new DateTime(2019,7,19,21,2,50,4),
@@ -72,9 +72,9 @@ namespace eShopApp.Services
             return Products.FirstOrDefault(p => p.Id == id);
         }
 
-        public ObservableCollection<Product> GetProducts()
+        public IList<Product> GetProductsOrderedByPrice()
         {
-            return Products;
+            return Products.OrderBy(p => p.Price).ToList();
         }
     }
 }
