@@ -137,4 +137,13 @@
       <Name>eShopApp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cart%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cart%402x.png" />
+  </ItemGroup>
 </Project>
