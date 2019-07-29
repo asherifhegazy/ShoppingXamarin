@@ -5,10 +5,10 @@ using System.Text;
 
 namespace eShopApp.Services
 {
-    public interface IUserService
+    public interface IProductService
     {
-        IList<User> GetUsers();
+        IList<Product> GetProductsOrderedByPrice();
 
-        bool IsUserExists(string username);
+        Product GetProductById(int id);
     }
 }

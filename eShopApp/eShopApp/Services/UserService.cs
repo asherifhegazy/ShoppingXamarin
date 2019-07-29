@@ -9,7 +9,7 @@ namespace eShopApp.Services
 {
     public class UserService : IUserService
     {
-        ObservableCollection<User> Users = new ObservableCollection<User>
+        IList<User> Users = new List<User>
         {
             new User
             {
@@ -28,7 +28,7 @@ namespace eShopApp.Services
             }
         };
 
-        public ICollection<User> GetUsers()
+        public IList<User> GetUsers()
         {
             return Users;
         }
