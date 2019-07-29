@@ -5,10 +5,10 @@ using System.Text;
 
 namespace eShopApp.Services
 {
-    public interface IUserService
+    public interface IProductService
     {
-        ObservableCollection<User> GetUsers();
+        ObservableCollection<Product> GetProducts();
 
-        bool IsUserExists(string username);
+        Product GetProductById(int id);
     }
 }

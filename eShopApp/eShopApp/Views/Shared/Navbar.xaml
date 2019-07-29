@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="eShopApp.Views.Shared.Navbar">
+    
+    <StackLayout Orientation="Horizontal"
+                 VerticalOptions="Start"
+                 HorizontalOptions="FillAndExpand"
+                 Padding="10,8,10,8"
+                 BackgroundColor="GreenYellow">
+
+        <Label Text="{Binding Username}"
+               HorizontalOptions="StartAndExpand"
+               TextColor="Black"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="cart.png" 
+                   WidthRequest="15"
+                   HorizontalOptions="End"
+                   Grid.Column="0"
+                   Grid.Row="0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CartIconTabbed"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <Frame BackgroundColor="Red"
+                   BorderColor="White"
+                   CornerRadius="10"
+                   WidthRequest="20"
+                   HeightRequest="20"
+                   Margin="0,0,10,0"
+                   Padding="0"
+                   IsVisible="True"
+                   Grid.Column="0"
+                   Grid.Row="0">
+                <Label Text="3"
+                       FontSize="Micro"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Frame>
+        </Grid>
+        
+        
+        <Image Source="dots.png"
+               WidthRequest="15"
+               HorizontalOptions="End">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="DotsIconTabbed"/>
+            </Image.GestureRecognizers>
+        </Image>
+    </StackLayout>
+</ContentView>

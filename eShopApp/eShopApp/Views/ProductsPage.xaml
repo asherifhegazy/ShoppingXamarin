@@ -3,18 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:eShopApp.Converters"
              mc:Ignorable="d"
              x:Class="eShopApp.Views.ProductsPage"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             xmlns:shared="clr-namespace:eShopApp.Views.Shared">
 
-    <StackLayout Orientation="Horizontal"
-                 VerticalOptions="Start"
-                 HorizontalOptions="FillAndExpand"
-                 Padding="10,5,10,5"
-                 BackgroundColor="GreenYellow">
-        
-        <Label Text="ahmed"
-               VerticalOptions="Start"
-               TextColor="Black"/>
+    <Page.Resources>
+        <ResourceDictionary>
+            <local:DecimalToStringConverter x:Key="DecimalStringConverter"/>
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <StackLayout Orientation="Vertical">
+
+        <shared:Navbar />
+
+        <ListView x:Name="listView"
+                  ItemsSource="{Binding Products}"
+                  HasUnevenRows="True"
+                  ItemTapped="ListView_ItemTapped"
+                  ItemSelected="ListView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="5,10,5,15"
+                                     Orientation="Horizontal">
+                            <Image Source="{Binding ImagePosterUrl}"
+                                   WidthRequest="100" />
+
+                            <StackLayout Orientation="Vertical">
+                                
+                                <Label Text="{Binding Name}"
+                                        FontSize="Medium"
+                                        TextColor="Black"/>
+
+                                <Label Text="{Binding Description}"
+                                        FontSize="Micro"
+                                        TextColor="Black"
+                                        MaxLines="3"
+                                        LineBreakMode="TailTruncation"/>
+
+                                <Label Text="{Binding Price,
+                                                      Converter={StaticResource DecimalStringConverter}}"
+                                        FontSize="Medium"
+                                        TextColor="Black"
+                                        Margin="0,15,0,0"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
+
 </ContentPage>
