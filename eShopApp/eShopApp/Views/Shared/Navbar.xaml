@@ -9,7 +9,7 @@
     <StackLayout Orientation="Horizontal"
                  VerticalOptions="Start"
                  HorizontalOptions="FillAndExpand"
-                 Padding="10,8,10,8"
+                 Padding="10,15,10,15"
                  BackgroundColor="#A1FF75">
 
         <Label Text="{Binding Username}"
@@ -25,7 +25,7 @@
             </Grid.RowDefinitions>
 
             <Image Source="cart.png" 
-                   WidthRequest="15"
+                   WidthRequest="20"
                    HorizontalOptions="End"
                    Grid.Column="0"
                    Grid.Row="0">
@@ -39,7 +39,7 @@
                    CornerRadius="10"
                    WidthRequest="20"
                    HeightRequest="20"
-                   Margin="0,0,10,0"
+                   Margin="0,0,15,0"
                    Padding="0"
                    IsVisible="True"
                    Grid.Column="0"
@@ -54,8 +54,9 @@
         
         
         <Image Source="dots.png"
-               WidthRequest="15"
-               HorizontalOptions="End">
+               WidthRequest="20"
+               HorizontalOptions="End"
+               Margin="5,0,0,0">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Tapped="DotsIconTabbed"/>
             </Image.GestureRecognizers>
