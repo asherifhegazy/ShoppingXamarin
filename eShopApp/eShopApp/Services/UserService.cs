@@ -28,6 +28,11 @@ namespace eShopApp.Services
             }
         };
 
+        public int GetUserIdByUsername(string username)
+        {
+            return Users.SingleOrDefault(u => u.Username == username).Id;
+        }
+
         public IList<User> GetUsers()
         {
             return Users;

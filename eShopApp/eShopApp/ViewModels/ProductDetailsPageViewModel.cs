@@ -1,5 +1,6 @@
 ﻿using eShopApp.Models;
 using eShopApp.Services;
+using eShopApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,11 +14,13 @@ namespace eShopApp.ViewModels
         public Product Product { get; set; }
 
         private readonly IProductService _productService;
+        private readonly ICartSerivce _cartService;
+        private readonly IUserService _userService;
         private readonly IPageService _pageService;
 
-        string stepper;
+        int stepper = 1;
 
-        public string Stepper
+        public int Stepper
         {
             get => stepper;
 
@@ -33,9 +36,11 @@ namespace eShopApp.ViewModels
 
         public ICommand AddToCartCommand { get; set; }
 
-        public ProductDetailsPageViewModel(int productId, IProductService productService, IPageService pageService)
+        public ProductDetailsPageViewModel(int productId, IProductService productService, ICartSerivce cartSerivce, IUserService userService, IPageService pageService)
         {
             _productService = productService;
+            _cartService = cartSerivce;
+            _userService = userService;
             _pageService = pageService;
 
             Product = _productService.GetProductById(productId);
@@ -43,9 +48,20 @@ namespace eShopApp.ViewModels
             AddToCartCommand = new Command(OnAddToCartCommand);
         }
 
-        private void OnAddToCartCommand()
+        private async void OnAddToCartCommand()
         {
-            _pageService.DisplayAlert("Add To Cart",$"{Product.Name}","OK","CANCEL");
+            var cartItem = new CartItem
+            {
+                UserId = _userService.GetUserIdByUsername(Global.UserName),
+                ProductId = Product.Id,
+                Product = Product,
+                Quantity = stepper,
+                CreatedDate = DateTime.Now
+            };
+
+            _cartService.AddCartItem(cartItem);
+
+            await _pageService.PushAsync(new ProductsPage());
         }
     }
 }

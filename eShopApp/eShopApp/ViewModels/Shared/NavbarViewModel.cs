@@ -31,8 +31,7 @@ namespace eShopApp.ViewModels.Shared
 
         private async void OnCartCommand()
         {
-            await _pageService.DisplayAlert("cart","cart","ok","cancel");
-            //await _pageService.PushAsync(null);
+            await _pageService.PushAsync(new CartPage());
         }
 
         private async void OnDotsCommand()

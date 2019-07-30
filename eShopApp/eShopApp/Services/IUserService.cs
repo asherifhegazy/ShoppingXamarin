@@ -10,5 +10,7 @@ namespace eShopApp.Services
         IList<User> GetUsers();
 
         bool IsUserExists(string username);
+
+        int GetUserIdByUsername(string username);
     }
 }

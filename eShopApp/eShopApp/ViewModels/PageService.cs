@@ -10,11 +10,13 @@ namespace eShopApp.ViewModels
 {
     public class PageService : IPageService
     {
-        //private Page MainPage { get; set; }
+        //private readonly Page MainPage;
+
         //public PageService()
         //{
-        //    MainPage = MainPage;
+        //    MainPage = Application.Current.MainPage;
         //}
+
         public async Task PopToRootAsync()
         {
 
@@ -38,7 +40,11 @@ namespace eShopApp.ViewModels
 
         public async Task PushAsync(Page page)
         {
-            await Application.Current.MainPage.Navigation.PushAsync(page);
+            var lastIndex = Application.Current.MainPage.Navigation.NavigationStack.Count() - 1;
+            var lastPageType = Application.Current.MainPage.Navigation.NavigationStack[lastIndex].GetType();
+
+            if (page.GetType() != lastPageType)
+                await Application.Current.MainPage.Navigation.PushAsync(page);
         }
 
         public async Task PushModalAsync(Page page)

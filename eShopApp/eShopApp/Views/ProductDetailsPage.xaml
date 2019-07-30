@@ -62,9 +62,8 @@
                                  Increment="1"
                                  Minimum="1"
                                  Maximum="{Binding Product.Quantity}"
-                                 Value="1"/>
-                        <Label Text="{Binding Source={x:Reference stepper},
-                                              Path=Value}"
+                                 Value="{Binding Stepper}"/>
+                        <Label Text="{Binding Stepper}"
                                VerticalTextAlignment="Center"/>
                     </StackLayout>
 
