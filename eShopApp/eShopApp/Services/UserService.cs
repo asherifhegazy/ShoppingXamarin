@@ -10,18 +10,18 @@ using Newtonsoft.Json;
 
 namespace eShopApp.Services
 {
-    public class UserService : IUserService
+    public class UserService : BaseService ,IUserService
     {
-        HttpClient Client { get; set; }
+        //HttpClient Client { get; set; }
 
         User User { get; set; } = new User();
 
         const string url = "Users/";
 
-        public UserService()
-        {
-            Client = BaseHttpService.GetClient();
-        }
+        //public UserService()
+        //{
+        //    Client = BaseHttpService.GetClient();
+        //}
 
         public async Task<int> GetUserIdByUsername(string username)
         {

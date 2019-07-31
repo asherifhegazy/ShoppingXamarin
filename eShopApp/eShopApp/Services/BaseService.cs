@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace eShopApp.Services
 {
-    public static class BaseHttpService
+    public class BaseService
     {
         const string BaseUrl = "https://eshopserviceahmed.azurewebsites.net/api/";
+        protected HttpClient Client { get; set; }
 
-        public static HttpClient GetClient()
+        public BaseService()
+        {
+            Client = GetClient();
+        }
+
+        private HttpClient GetClient()
         {
             HttpClient client = new HttpClient();
 
