@@ -1,4 +1,5 @@
 ﻿using eShopApp.Models;
+using eShopApp.Renderers;
 using eShopApp.Services;
 using eShopApp.Views;
 using System;
@@ -52,7 +53,7 @@ namespace eShopApp.ViewModels
         {
             var cartItem = new CartItem
             {
-                UserId = _userService.GetUserIdByUsername(Global.UserName),
+                UserId = _userService.GetUserIdByUsername(Global.UserName.ToString()),
                 ProductId = Product.Id,
                 Product = Product,
                 Quantity = stepper,
@@ -60,6 +61,8 @@ namespace eShopApp.ViewModels
             };
 
             _cartService.AddCartItem(cartItem);
+
+            //DependencyService.Get<IToast>().ShowShortMessage("Cart updated successfully");
 
             await _pageService.PushAsync(new ProductsPage());
         }

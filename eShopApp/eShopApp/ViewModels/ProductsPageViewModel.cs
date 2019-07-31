@@ -13,7 +13,19 @@ namespace eShopApp.ViewModels
 {
     public class ProductsPageViewModel : BaseViewModel
     {
-        public IList<Product> Products { get; set; }
+        IList<Product> products;
+        public IList<Product> Products
+        {
+            get => products;
+            set
+            {
+                if (products != value)
+                {
+                    SetValue(ref products, value);
+                    OnPropertyChanged(nameof(Products));
+                }
+            }
+        }
 
         private readonly IProductService _productService;
         private readonly IPageService _pageService;
@@ -24,8 +36,6 @@ namespace eShopApp.ViewModels
             _productService = productService;
             _pageService = pageService;
 
-            Products = _productService.GetProductsOrderedByPrice();
-
             OnItemSelectedCommand = new Command<object>(OnSelectedItem);
         }
 
@@ -35,6 +45,21 @@ namespace eShopApp.ViewModels
             var product = obj as Product;
 
             await _pageService.PushAsync(new ProductDetailsPage(product.Id));
+        }
+
+        public void OnAppearing()
+        {
+            var filterMinPrice = Global.FilterMinPrice;
+            var filterMaxPrice = Global.FilterMaxPrice;
+
+            if (filterMinPrice == null)
+                Products = _productService.GetProductsOrderedByPrice();
+            else
+            {
+                int.TryParse(filterMinPrice.ToString(), out int minPrice);
+                int.TryParse(filterMaxPrice.ToString(), out int maxPrice);
+                Products = _productService.GetProductsOrderedByPriceAndFiltered(minPrice, maxPrice);
+            }
         }
     }
 }

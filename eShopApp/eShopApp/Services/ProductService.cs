@@ -76,5 +76,12 @@ namespace eShopApp.Services
         {
             return Products.OrderBy(p => p.Price).ToList();
         }
+
+        public IList<Product> GetProductsOrderedByPriceAndFiltered(int minPrice, int maxPrice)
+        {
+            return GetProductsOrderedByPrice()
+                .Where(p => p.Price >= minPrice && p.Price <= maxPrice)
+                .ToList();
+        }
     }
 }

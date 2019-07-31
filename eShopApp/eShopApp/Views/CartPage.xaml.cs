@@ -1,4 +1,6 @@
-﻿using System;
+﻿using eShopApp.Services;
+using eShopApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +14,14 @@ namespace eShopApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CartPage : ContentPage
     {
+        public CartPageViewModel CartPageViewModel { get; set; }
         public CartPage()
         {
             InitializeComponent();
+
+            CartPageViewModel = new CartPageViewModel(new CartService(), new UserService(), new PageService());
+
+            BindingContext = CartPageViewModel;
         }
     }
 }

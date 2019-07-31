@@ -1,4 +1,5 @@
 ﻿using eShopApp.Views;
+using eShopApp.Views.Modals;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,7 +22,7 @@ namespace eShopApp.ViewModels.Shared
 
         public NavbarViewModel(IPageService pageService)
         {
-            Username = Global.UserName;
+            Username = Global.UserName.ToString();
 
             _pageService = pageService;
 
@@ -51,6 +52,7 @@ namespace eShopApp.ViewModels.Shared
                     break;
 
                 case "Filter":
+                    await _pageService.PushModalAsync(new FilterModalPage());
                     break;
 
                 case "Sync":
