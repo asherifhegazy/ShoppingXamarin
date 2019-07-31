@@ -48,5 +48,6 @@ namespace eShopApp.Views.Shared
         {
             NavbarViewModel.CartCommand.Execute(null);
         }
+
     }
 }

@@ -53,7 +53,7 @@ namespace eShopApp.ViewModels
         {
             var cartItem = new CartItem
             {
-                UserId = _userService.GetUserIdByUsername(Global.UserName.ToString()),
+                UserId = await _userService.GetUserIdByUsername(Global.UserName.ToString()),
                 ProductId = Product.Id,
                 Product = Product,
                 Quantity = stepper,

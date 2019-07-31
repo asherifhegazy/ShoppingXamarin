@@ -33,9 +33,7 @@ namespace eShopApp.ViewModels.Shared
             _userService = userService;
             _pageService = pageService;
 
-            var userId = _userService.GetUserIdByUsername(Username);
-
-            NumberOfCartItems = _cartService.GetNumberOfCartItems(userId);
+            OnAppearing();
 
             CartCommand = new Command(OnCartCommand);
             DotsCommand = new Command(OnDotsCommand);
@@ -76,6 +74,13 @@ namespace eShopApp.ViewModels.Shared
                 default:
                     break;
             }
+        }
+
+        private async void OnAppearing()
+        {
+            var userId = await _userService.GetUserIdByUsername(Username);
+
+            NumberOfCartItems = _cartService.GetNumberOfCartItems(userId);
         }
     }
 }

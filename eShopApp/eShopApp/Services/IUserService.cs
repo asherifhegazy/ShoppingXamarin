@@ -2,15 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace eShopApp.Services
 {
     public interface IUserService
     {
-        IList<User> GetUsers();
+        Task<bool> IsUserExists(string username);
 
-        bool IsUserExists(string username);
-
-        int GetUserIdByUsername(string username);
+        Task<int> GetUserIdByUsername(string username);
     }
 }

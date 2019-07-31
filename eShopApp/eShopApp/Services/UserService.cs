@@ -2,45 +2,47 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using eShopApp.Models;
+using Newtonsoft.Json;
 
 namespace eShopApp.Services
 {
     public class UserService : IUserService
     {
-        IList<User> Users = new List<User>
+        HttpClient Client { get; set; }
+
+        User User { get; set; } = new User();
+
+        const string url = "Users/";
+
+        public UserService()
         {
-            new User
+            Client = BaseHttpService.GetClient();
+        }
+
+        public async Task<int> GetUserIdByUsername(string username)
+        {
+            if(await IsUserExists(username))
+                return User.Id;
+
+            return -1;
+        }
+
+        public async Task<bool> IsUserExists(string username)
+        {
+            var response = await Client.GetAsync($"{url}/user/{username}");
+            if (response.IsSuccessStatusCode)
             {
-                Id = 1,
-                Username = "ahmed"
-            },
-            new User
-            {
-                Id = 2,
-                Username = "basma"
-            },
-            new User
-            {
-                Id = 3,
-                Username = "youssef"
+                var message = await response.Content.ReadAsStringAsync();
+                User = JsonConvert.DeserializeObject<User>(message);
+
+                return true;
             }
-        };
 
-        public int GetUserIdByUsername(string username)
-        {
-            return Users.SingleOrDefault(u => u.Username == username).Id;
-        }
-
-        public IList<User> GetUsers()
-        {
-            return Users;
-        }
-
-        public bool IsUserExists(string username)
-        {
-            return Users.Any(u=>u.Username == username);
+            return false;
         }
     }
 }

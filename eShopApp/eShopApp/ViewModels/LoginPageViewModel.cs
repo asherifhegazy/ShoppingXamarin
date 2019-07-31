@@ -43,7 +43,7 @@ namespace eShopApp.ViewModels
 
         private async void OnLoginCommand()
         {
-            var result = _userService.IsUserExists(Username);
+            var result = await _userService.IsUserExists(Username);
 
             if (result)
             {

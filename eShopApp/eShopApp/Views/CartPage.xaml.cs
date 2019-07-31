@@ -23,5 +23,12 @@ namespace eShopApp.Views
 
             BindingContext = CartPageViewModel;
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            CartPageViewModel.OnAppearing();
+        }
     }
 }

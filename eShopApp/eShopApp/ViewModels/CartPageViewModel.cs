@@ -25,16 +25,19 @@ namespace eShopApp.ViewModels
             _userService = userService;
             _pageService = pageService;
 
-            var userId = _userService.GetUserIdByUsername(Global.UserName.ToString());
-
-            CartItems = _cartService.GetCartItems(userId);
-
             DeleteItemCommand = new Command(OnDeleteItemCommand);
         }
 
         private void OnDeleteItemCommand()
         {
             _cartService.RemoveItemFromCart(null);
+        }
+
+        public async void OnAppearing()
+        {
+            var userId = await _userService.GetUserIdByUsername(Global.UserName.ToString());
+
+            CartItems = _cartService.GetCartItems(userId);
         }
     }
 }
