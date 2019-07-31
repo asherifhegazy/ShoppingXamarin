@@ -15,6 +15,7 @@ namespace eShopApp.ViewModels.Shared
 
         public ICommand CartCommand { get; set; }
 
+        public bool IsFilterEnabled { get; set; }
 
         private readonly IPageService _pageService;
 
@@ -36,7 +37,13 @@ namespace eShopApp.ViewModels.Shared
 
         private async void OnDotsCommand()
         {
-            string action = await _pageService.DisplayActionSheet(null, "Cancel", null, "Home", "Filter", "Sync", "Logout");
+            string action = string.Empty;
+
+            if (IsFilterEnabled)
+                action = await _pageService.DisplayActionSheet(null, "Cancel", null, "Filter", "Sync", "Logout");
+            else
+                action = await _pageService.DisplayActionSheet(null, "Cancel", null, "Home", "Sync", "Logout");
+
 
             switch (action)
             {

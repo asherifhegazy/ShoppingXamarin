@@ -17,7 +17,7 @@
     
     <StackLayout Orientation="Vertical">
 
-        <shared:Navbar />
+        <shared:Navbar IsFilterEnabled="True"/>
 
         <ListView x:Name="listView"
                   ItemsSource="{Binding Products}"
