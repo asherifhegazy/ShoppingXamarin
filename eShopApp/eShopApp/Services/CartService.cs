@@ -39,7 +39,7 @@ namespace eShopApp.Services
                         "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
                     }
                 },
-                Quantity = 4,
+                Quantity = 0,
                 CreatedDate = DateTime.Now
             },
             new CartItem
@@ -64,7 +64,7 @@ namespace eShopApp.Services
                         "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
                     }
                 },
-                Quantity = 4,
+                Quantity = 0,
                 CreatedDate = DateTime.Now
             },
             new CartItem
