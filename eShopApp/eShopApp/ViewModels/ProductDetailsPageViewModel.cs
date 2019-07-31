@@ -12,7 +12,21 @@ namespace eShopApp.ViewModels
 {
     public class ProductDetailsPageViewModel : BaseViewModel
     {
-        public Product Product { get; set; }
+        Product product;
+
+        public Product Product
+        {
+            get => product;
+
+            set
+            {
+                if (product != value)
+                {
+                    SetValue(ref product, value);
+                    OnPropertyChanged(nameof(Product));
+                }
+            }
+        }
 
         private readonly IProductService _productService;
         private readonly ICartSerivce _cartService;
@@ -37,14 +51,12 @@ namespace eShopApp.ViewModels
 
         public ICommand AddToCartCommand { get; set; }
 
-        public ProductDetailsPageViewModel(int productId, IProductService productService, ICartSerivce cartSerivce, IUserService userService, IPageService pageService)
+        public ProductDetailsPageViewModel(IProductService productService, ICartSerivce cartSerivce, IUserService userService, IPageService pageService)
         {
             _productService = productService;
             _cartService = cartSerivce;
             _userService = userService;
             _pageService = pageService;
-
-            Product = _productService.GetProductById(productId);
 
             AddToCartCommand = new Command(OnAddToCartCommand);
         }
@@ -65,6 +77,11 @@ namespace eShopApp.ViewModels
             //DependencyService.Get<IToast>().ShowShortMessage("Cart updated successfully");
 
             await _pageService.PushAsync(new ProductsPage());
+        }
+
+        public async void OnAppearing(int productId)
+        {
+            Product = await _productService.GetProductById(productId);
         }
     }
 }

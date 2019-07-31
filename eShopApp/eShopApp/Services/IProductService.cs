@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace eShopApp.Services
 {
     public interface IProductService
     {
-        IList<Product> GetProductsOrderedByPrice();
+        Task<IList<Product>> GetProductsOrderedByPrice();
 
-        IList<Product> GetProductsOrderedByPriceAndFiltered(int minPrice, int maxPrice);
+        Task<IList<Product>> GetProductsOrderedByPriceAndFiltered(int minPrice, int maxPrice);
 
-        Product GetProductById(int id);
+        Task<Product> GetProductById(int id);
     }
 }

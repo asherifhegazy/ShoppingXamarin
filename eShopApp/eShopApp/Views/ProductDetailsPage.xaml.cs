@@ -15,38 +15,25 @@ namespace eShopApp.Views
     public partial class ProductDetailsPage : ContentPage
     {
         public ProductDetailsPageViewModel ProductDetailsPageViewModel { get; set; }
+
+        private int _productId;
         public ProductDetailsPage(int id)
         {
             InitializeComponent();
 
-            ProductDetailsPageViewModel = new ProductDetailsPageViewModel(id, new ProductService(), new CartService(), new UserService(), new PageService());
+            _productId = id;
+
+            ProductDetailsPageViewModel = new ProductDetailsPageViewModel(new ProductService(), new CartService(), new UserService(), new PageService());
 
             BindingContext = ProductDetailsPageViewModel;
+        }
 
-            //carousel.ItemSource = new Color[] {
-            //    Color.Red,
-            //    Color.Blue,
-            //    Color.Green,
-            //    Color.Purple,
-            //    Color.Yellow
-            //};
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
 
-            //carousel.ItemTemlate = new DataTemplate(typeof(CarouselViewCell));
+            ProductDetailsPageViewModel.OnAppearing(_productId);
         }
     }
 
-    //class CarouselViewCell : ViewCell
-    //{
-    //    public CarouselViewCell()
-    //    {
-    //        View = new BoxView();
-    //    }
-
-    //    protected override void OnBindingContextChanged()
-    //    {
-    //        base.OnBindingContextChanged();
-
-    //        View.BackgroundColor = (Color)BindingContext;
-    //    }
-    //}
 }

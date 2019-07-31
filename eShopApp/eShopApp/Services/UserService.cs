@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using eShopApp.Models;
 using Newtonsoft.Json;
 
@@ -12,16 +6,9 @@ namespace eShopApp.Services
 {
     public class UserService : BaseService ,IUserService
     {
-        //HttpClient Client { get; set; }
-
         User User { get; set; } = new User();
 
-        const string url = "Users/";
-
-        //public UserService()
-        //{
-        //    Client = BaseHttpService.GetClient();
-        //}
+        const string url = "Users";
 
         public async Task<int> GetUserIdByUsername(string username)
         {

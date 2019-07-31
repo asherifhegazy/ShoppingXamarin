@@ -1,87 +1,54 @@
-﻿using System;
-using System.Linq;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Linq;
 using eShopApp.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace eShopApp.Services
 {
-    public class ProductService : IProductService
+    public class ProductService : BaseService ,IProductService
     {
-        private readonly IList<Product> Products = new List<Product>
-        {
-            new Product
-            {
-                Id = 1,
-                Name = "LG Smart TV 21\"",
-                Description = "This LG LED TV offers unmatched entertainment. With the resolution of 1920 x 1080 pixels, this 43inch TV renders clear and detailed images so that you don’t miss out even on minutest of details. The top-notch dynamic color processing technology brings images to life. Thanks to the Virtual surround sound, this LG TV recreates the exceptional sound, thereby making your favorite sporting events all the more fun. With HDMI and USB port, you can connect entertainment devices to your TV. The eye-catching frames add a touch of modernity to this LG FHD TV. With built-in HD receiver, you are set to enjoy HD content immediately without any additional external support. The slim construction of this LG TV makes it a must-have for your living room.",
-                Price=  300,
-                Quantity= 6,
-                ImagePosterUrl = "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                CreatedDate = new DateTime(2019,7,19,21,2,50,4),
-                Images = new List<string>
-                {
-                    "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                    "https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG",
-                    "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                    "https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG",
-                    "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                }
-            },
-            new Product
-            {
-                Id = 2,
-                Name = "LG Smart TV 43\"",
-                Description = "This LG LED TV offers unmatched entertainment. With the resolution of 1920 x 1080 pixels, this 43inch TV renders clear and detailed images so that you don’t miss out even on minutest of details. The top-notch dynamic color processing technology brings images to life. Thanks to the Virtual surround sound, this LG TV recreates the exceptional sound, thereby making your favorite sporting events all the more fun. With HDMI and USB port, you can connect entertainment devices to your TV. The eye-catching frames add a touch of modernity to this LG FHD TV. With built-in HD receiver, you are set to enjoy HD content immediately without any additional external support. The slim construction of this LG TV makes it a must-have for your living room.",
-                Price=  1000,
-                Quantity= 2,
-                ImagePosterUrl = "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                CreatedDate = new DateTime(2019,7,19,21,2,50,4),
-                Images = new List<string>
-                {
-                    "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                    "https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG",
-                    "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                    "https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG",
-                    "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                }
-            },
-            new Product
-            {
-                Id = 3,
-                Name = "LG Smart TV 56\"",
-                Description = "This LG LED TV offers unmatched entertainment. With the resolution of 1920 x 1080 pixels, this 43inch TV renders clear and detailed images so that you don’t miss out even on minutest of details. The top-notch dynamic color processing technology brings images to life. Thanks to the Virtual surround sound, this LG TV recreates the exceptional sound, thereby making your favorite sporting events all the more fun. With HDMI and USB port, you can connect entertainment devices to your TV. The eye-catching frames add a touch of modernity to this LG FHD TV. With built-in HD receiver, you are set to enjoy HD content immediately without any additional external support. The slim construction of this LG TV makes it a must-have for your living room.",
-                Price=  500,
-                Quantity= 15,
-                ImagePosterUrl = "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                CreatedDate = new DateTime(2019,7,19,21,2,50,4),
-                Images = new List<string>
-                {
-                    "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                    "https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG",
-                    "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                    "https://thegoodguys.sirv.com/products/50052624/50052624_562897.PNG",
-                    "https://www.lg.com/pa_en/images/tvs/MD05606915/gallery/medium01.jpg",
-                }
-            },
-        };
+        const string url = "Products";
 
-        public Product GetProductById(int id)
+        public async Task<Product> GetProductById(int id)
         {
-            return Products.FirstOrDefault(p => p.Id == id);
+            var response = await Client.GetAsync($"{url}/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                var product = JsonConvert.DeserializeObject<Product>(message);
+                return product;
+            }
+
+            return new Product();
+        }
+        public async Task<IList<Product>> GetProductsOrderedByPrice()
+        {
+            var response = await Client.GetAsync($"{url}");
+            if (response.IsSuccessStatusCode)
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                var products = JsonConvert.DeserializeObject<IList<Product>>(message);
+                return products.OrderBy(p => p.Price).ToList();
+            }
+
+            return new List<Product>();
         }
 
-        public IList<Product> GetProductsOrderedByPrice()
+        public async Task<IList<Product>> GetProductsOrderedByPriceAndFiltered(int minPrice, int maxPrice)
         {
-            return Products.OrderBy(p => p.Price).ToList();
-        }
+            var response = await Client.GetAsync($"{url}/filter/{minPrice}/{maxPrice}");
+            if (response.IsSuccessStatusCode)
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                var products = JsonConvert.DeserializeObject<IList<Product>>(message);
+                return products.OrderBy(p => p.Price).ToList();
+            }
 
-        public IList<Product> GetProductsOrderedByPriceAndFiltered(int minPrice, int maxPrice)
-        {
-            return GetProductsOrderedByPrice()
-                .Where(p => p.Price >= minPrice && p.Price <= maxPrice)
-                .ToList();
+            return new List<Product>();
         }
     }
+
+        
 }
+
