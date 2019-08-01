@@ -11,9 +11,37 @@ namespace eShopApp.ViewModels.Shared
 {
     public class NavbarViewModel : BaseViewModel
     {
-        public string Username { get; set; }
+        string username;
 
-        public int NumberOfCartItems { get; set; }
+        public string Username
+        {
+            get => username;
+
+            set
+            {
+                if (username != value)
+                {
+                    SetValue(ref username, value);
+                    OnPropertyChanged(nameof(Username));
+                }
+            }
+        }
+
+        int numberOfCartItems;
+
+        public int NumberOfCartItems
+        {
+            get => numberOfCartItems;
+
+            set
+            {
+                if (numberOfCartItems != value)
+                {
+                    SetValue(ref numberOfCartItems, value);
+                    OnPropertyChanged(nameof(NumberOfCartItems));
+                }
+            }
+        }
 
         public ICommand DotsCommand { get; set; }
 
@@ -78,9 +106,9 @@ namespace eShopApp.ViewModels.Shared
 
         private async void OnAppearing()
         {
-            var userId = await _userService.GetUserIdByUsername(Username);
+            var userId = await _userService.GetUserIdByUsername(username);
 
-            NumberOfCartItems = _cartService.GetNumberOfCartItems(userId);
+            NumberOfCartItems = await _cartService.GetNumberOfCartItems(userId);
         }
     }
 }

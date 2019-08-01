@@ -72,11 +72,18 @@ namespace eShopApp.ViewModels
                 CreatedDate = DateTime.Now
             };
 
-            _cartService.AddCartItem(cartItem);
+            var isAdded = await _cartService.AddCartItem(cartItem);
 
-            //DependencyService.Get<IToast>().ShowShortMessage("Cart updated successfully");
-
-            await _pageService.PushAsync(new ProductsPage());
+            if (isAdded)
+            {
+                await _pageService.DisplayAlert("Success", "Cart Updated Successfully", "OK", "Cancel");
+                //DependencyService.Get<IToast>().ShowShortMessage("Cart updated successfully");
+                await _pageService.PushAsync(new ProductsPage());
+            }
+            else
+            {
+                await _pageService.DisplayAlert("Failed", "Something Went Wrong", "OK", "Cancel");
+            }
         }
 
         public async void OnAppearing(int productId)

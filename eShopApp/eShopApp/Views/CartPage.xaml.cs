@@ -19,7 +19,7 @@ namespace eShopApp.Views
         {
             InitializeComponent();
 
-            CartPageViewModel = new CartPageViewModel(new CartService(), new UserService(), new PageService());
+            CartPageViewModel = new CartPageViewModel(new CartService(), new UserService(), new OrderService(), new PageService());
 
             BindingContext = CartPageViewModel;
         }

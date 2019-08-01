@@ -8,7 +8,7 @@ namespace eShopApp.Services
 {
     public class BaseService
     {
-        const string BaseUrl = "https://eshopserviceahmed.azurewebsites.net/api/";
+        protected const string BaseUrl = "https://eshopserviceahmed.azurewebsites.net/api/";
         protected HttpClient Client { get; set; }
 
         public BaseService()

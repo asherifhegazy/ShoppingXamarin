@@ -3,19 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace eShopApp.Services
 {
     public interface ICartSerivce
     {
-        ObservableCollection<CartItem> GetCartItems(int uid);
+        Task<ObservableCollection<CartItem>> GetCartItems(int uid);
 
-        void AddCartItem(CartItem cartItem);
+        Task<bool> AddCartItem(CartItem cartItem);
 
-        int GetNumberOfCartItems(int uid);
+        Task<int> GetNumberOfCartItems(int uid);
 
-        void RemoveItemFromCart(CartItem cartItem);
+        Task<bool> RemoveItemFromCart(CartItem cartItem);
 
-        void SubmitOrder(int uid);
     }
 }
