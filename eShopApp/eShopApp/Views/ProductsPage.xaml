@@ -19,6 +19,8 @@
 
         <shared:Navbar IsFilterEnabled="True"/>
 
+        <shared:ActvityIndicator IsVisible="{Binding IsLoading}"/>
+
         <ListView x:Name="listView"
                   ItemsSource="{Binding Products}"
                   HasUnevenRows="True"

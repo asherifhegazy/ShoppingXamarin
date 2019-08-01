@@ -49,6 +49,8 @@ namespace eShopApp.ViewModels
 
         public async void OnAppearing()
         {
+            IsLoading = true;
+
             var filterMinPrice = Global.FilterMinPrice;
             var filterMaxPrice = Global.FilterMaxPrice;
 
@@ -60,6 +62,8 @@ namespace eShopApp.ViewModels
                 int.TryParse(filterMaxPrice.ToString(), out int maxPrice);
                 Products = await _productService.GetProductsOrderedByPriceAndFiltered(minPrice, maxPrice);
             }
+
+            IsLoading = false;
         }
     }
 }

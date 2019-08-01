@@ -11,7 +11,7 @@ using Android.Views;
 using Android.Widget;
 using eShopApp.Renderers;
 
-[assembly: Xamarin.Forms.Dependency(typeof(Toast))]
+[assembly: Xamarin.Forms.Dependency(typeof(eShopApp.Droid.Renderers.Toast))]
 
 namespace eShopApp.Droid.Renderers
 {

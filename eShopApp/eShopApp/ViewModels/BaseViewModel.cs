@@ -23,5 +23,21 @@ namespace eShopApp.ViewModels
 
             OnPropertyChanged(propertyName);
         }
+
+        bool isLoading = false;
+
+        public bool IsLoading
+        {
+            get => isLoading;
+
+            set
+            {
+                if (isLoading != value)
+                {
+                    SetValue(ref isLoading, value);
+                    OnPropertyChanged(nameof(IsLoading));
+                }
+            }
+        }
     }
 }

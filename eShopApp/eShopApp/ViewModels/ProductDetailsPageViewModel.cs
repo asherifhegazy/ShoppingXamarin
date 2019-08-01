@@ -63,6 +63,8 @@ namespace eShopApp.ViewModels
 
         private async void OnAddToCartCommand()
         {
+            IsLoading = true;
+
             var cartItem = new CartItem
             {
                 UserId = await _userService.GetUserIdByUsername(Global.UserName.ToString()),
@@ -74,21 +76,26 @@ namespace eShopApp.ViewModels
 
             var isAdded = await _cartService.AddCartItem(cartItem);
 
+            IsLoading = false;
+
             if (isAdded)
             {
-                await _pageService.DisplayAlert("Success", "Cart Updated Successfully", "OK", "Cancel");
-                //DependencyService.Get<IToast>().ShowShortMessage("Cart updated successfully");
+                DependencyService.Get<IToast>().ShowShortMessage("Cart updated successfully");
                 await _pageService.PushAsync(new ProductsPage());
             }
             else
             {
-                await _pageService.DisplayAlert("Failed", "Something Went Wrong", "OK", "Cancel");
+                DependencyService.Get<IToast>().ShowShortMessage("Something Went Wrong");
             }
         }
 
         public async void OnAppearing(int productId)
         {
+            IsLoading = true;
+
             Product = await _productService.GetProductById(productId);
+
+            IsLoading = false;
         }
     }
 }

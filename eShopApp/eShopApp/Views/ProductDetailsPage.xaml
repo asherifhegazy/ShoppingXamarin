@@ -19,6 +19,10 @@
     
     <StackLayout Orientation="Vertical">
         <shared:Navbar />
+
+        <shared:ActvityIndicator IsVisible="{Binding IsLoading}"/>
+
+        
         <ScrollView>
             <StackLayout Orientation="Vertical"
                          Spacing="5"
