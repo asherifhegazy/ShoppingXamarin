@@ -58,6 +58,11 @@ namespace eShopApp.ViewModels
             _userService = userService;
             _pageService = pageService;
 
+            Product = new Product
+            {
+                Images = new List<string> { "https://coolbackgrounds.io/images/backgrounds/white/pure-white-background-021aa40c.jpg" }
+            };
+
             AddToCartCommand = new Command(OnAddToCartCommand);
         }
 

@@ -4,8 +4,15 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="eShopApp.App">
+             x:Class="eShopApp.App"
+             xmlns:local="clr-namespace:eShopApp.Converters">
     <Application.Resources>
-
+            <ResourceDictionary>
+                <local:BoolToStringCartItemConverter x:Key="BoolStringItemConverter"/>
+                <local:BoolToColorConverter x:Key="BoolColorConverter"/>
+                <local:DecimalToStringConverter x:Key="DecimalStringConverter"/>
+                <local:IntToBoolConverter x:Key="IntBoolConverter"/>
+                <local:StringToBoolConverter x:Key="StringBoolConverter"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

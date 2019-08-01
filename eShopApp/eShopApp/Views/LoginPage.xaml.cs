@@ -22,7 +22,7 @@ namespace eShopApp.Views
         {
             base.OnAppearing();
 
-            LoginPageViewModel.Username = string.Empty;
+            LoginPageViewModel.Username = "ahmed";
         }
 
     }

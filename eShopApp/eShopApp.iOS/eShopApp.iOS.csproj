@@ -159,4 +159,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\dots%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\white_image.jpg" />
+  </ItemGroup>
 </Project>

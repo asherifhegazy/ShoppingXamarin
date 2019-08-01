@@ -10,12 +10,6 @@
              NavigationPage.HasNavigationBar="False"
              xmlns:loading="clr-namespace:eShopApp.Views.Shared">
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <local:StringToBoolConverter x:Key="StringBoolConverter"/>
-        </ResourceDictionary>
-    </Page.Resources>
-
     <StackLayout Spacing="10"
                  VerticalOptions="Center"
                  HorizontalOptions="Center"

@@ -9,12 +9,6 @@
              NavigationPage.HasNavigationBar="False"
              xmlns:shared="clr-namespace:eShopApp.Views.Shared">
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <local:DecimalToStringConverter x:Key="DecimalStringConverter"/>
-        </ResourceDictionary>
-    </Page.Resources>
-    
     <StackLayout Orientation="Vertical">
 
         <shared:Navbar IsFilterEnabled="True"/>
