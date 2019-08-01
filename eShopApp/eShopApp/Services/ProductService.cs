@@ -17,6 +17,9 @@ namespace eShopApp.Services
             {
                 var message = await response.Content.ReadAsStringAsync();
                 var product = JsonConvert.DeserializeObject<Product>(message);
+                if (product.Images.Count() == 0)
+                    product.Images.Add(product.ImagePosterUrl);
+
                 return product;
             }
 

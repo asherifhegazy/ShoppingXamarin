@@ -32,29 +32,19 @@
                        TextColor="Black"
                        HorizontalOptions="Start"/>
 
-                <Image Source="{Binding Product.ImagePosterUrl}"
-                       HorizontalOptions="Center"
-                       WidthRequest="250"/>
-
-                <!--<carousel:CarouselView ItemsSource="{Binding Product.Images}">
+                <carousel:CarouselView ItemsSource="{Binding Product.Images}"
+                                       HeightRequest="150">
                     <carousel:CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <Image  Source="{Binding uri}"  WidthRequest="200" />
+                            <StackLayout>
+                                <Image Source="{Binding .}"
+                                       HeightRequest="150"/>
+                            </StackLayout>
                         </DataTemplate>
                     </carousel:CarouselView.ItemTemplate>
 
-                </carousel:CarouselView>-->
+                </carousel:CarouselView>
                 
-                <!--<carousel:CarouselView x:Name="carousel"
-                                       HorizontalOptions="Center">
-                    --><!--<carousel:CarouselView.ItemTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding .}"
-                                   WidthRequest="250"/>
-                        </DataTemplate>
-                    </carousel:CarouselView.ItemTemplate>--><!--
-
-                </carousel:CarouselView>-->
 
                 <Label Text="{Binding Product.Price,
                                       Converter={StaticResource DecimalStringConverter}}"

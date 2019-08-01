@@ -13,6 +13,6 @@ namespace eShopApp.Models
         public int Quantity { get; set; }
         public string ImagePosterUrl { get; set; }
         public DateTime? CreatedDate { get; set; }
-        public IEnumerable<string> Images { get; set; }
+        public ICollection<string> Images { get; set; }
     }
 }
