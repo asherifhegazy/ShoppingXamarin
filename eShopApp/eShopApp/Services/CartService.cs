@@ -4,17 +4,16 @@ using System.Collections.ObjectModel;
 using System.Text;
 using eShopApp.Models;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace eShopApp.Services
 {
-    public class CartService : ICartSerivce
+    public class CartService : BaseService, ICartSerivce
     {
-        //private static readonly CartService instance = new CartService();
-        //static CartService() { } // Make sure it's truly lazy
-        //private CartService() { } // Prevent instantiation outside
-
-        //public static CartService Instance { get { return instance; } }
-
+        #region commented
+        /*
         IList<CartItem> CartItems { get; set; } = new List<CartItem>()
         {
             new CartItem
@@ -118,15 +117,33 @@ namespace eShopApp.Services
                 CreatedDate = DateTime.Now
             }
         };
+        */
+        #endregion
 
-        public void AddCartItem(CartItem cartItem)
+        const string url = "CartItems";
+
+        public async Task<bool> AddCartItem(CartItem cartItem)
         {
-            CartItems.Add(cartItem);
+            var response = await Client.PostAsync(url,
+                new StringContent(
+                    JsonConvert.SerializeObject(cartItem),
+                    Encoding.UTF8,"application/json"));
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        public ObservableCollection<CartItem> GetCartItems(int uid)
+        public async Task<ObservableCollection<CartItem>> GetCartItems(int uid)
         {
-            var gettingResult = CartItems.Where(ci => ci.UserId == uid)
+            var response = await Client.GetAsync($"{url}/{uid}");
+            if (response.IsSuccessStatusCode)
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                var cartItems = JsonConvert.DeserializeObject<IList<CartItem>>(message);
+                cartItems.Where(ci => ci.UserId == uid)
                 .Select(ci =>
                 {
                     if (ci.Quantity <= ci.Product.Quantity)
@@ -137,23 +154,44 @@ namespace eShopApp.Services
                     return ci;
                 }).ToList();
 
-            var observableList = new ObservableCollection<CartItem>(gettingResult);
-            return observableList;
+                var observableList = new ObservableCollection<CartItem>(cartItems);
+                return observableList;
+            }
+
+            return new ObservableCollection<CartItem>();
         }
 
-        public int GetNumberOfCartItems(int uid)
+        public async Task<int> GetNumberOfCartItems(int uid)
         {
-            return CartItems.Where(ci => ci.UserId == uid).Sum(ci=>ci.Quantity);
+            var response = await Client.GetAsync($"{url}/count/{uid}");
+            if (response.IsSuccessStatusCode)
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                var count = JsonConvert.DeserializeObject<int>(message);
+
+                return count;
+            }
+
+            return 0;
         }
 
-        public void RemoveItemFromCart(CartItem cartItem)
+        public async Task<bool> RemoveItemFromCart(CartItem cartItem)
         {
-            CartItems.Remove(cartItem);
-        }
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = new Uri($"{BaseUrl}{url}"),
+                Content = new StringContent(JsonConvert.SerializeObject(cartItem), Encoding.UTF8, "application/json")
+            };
 
-        public void SubmitOrder(int uid)
-        {
-            throw new NotImplementedException();
+            var response = await Client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

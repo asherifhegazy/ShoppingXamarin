@@ -47,19 +47,23 @@ namespace eShopApp.ViewModels
             await _pageService.PushAsync(new ProductDetailsPage(product.Id));
         }
 
-        public void OnAppearing()
+        public async void OnAppearing()
         {
+            IsLoading = true;
+
             var filterMinPrice = Global.FilterMinPrice;
             var filterMaxPrice = Global.FilterMaxPrice;
 
             if (filterMinPrice == null)
-                Products = _productService.GetProductsOrderedByPrice();
+                Products = await _productService.GetProductsOrderedByPrice();
             else
             {
                 int.TryParse(filterMinPrice.ToString(), out int minPrice);
                 int.TryParse(filterMaxPrice.ToString(), out int maxPrice);
-                Products = _productService.GetProductsOrderedByPriceAndFiltered(minPrice, maxPrice);
+                Products = await _productService.GetProductsOrderedByPriceAndFiltered(minPrice, maxPrice);
             }
+
+            IsLoading = false;
         }
     }
 }

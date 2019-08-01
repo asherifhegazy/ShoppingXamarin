@@ -19,6 +19,10 @@
     
     <StackLayout Orientation="Vertical">
         <shared:Navbar />
+
+        <shared:ActvityIndicator IsVisible="{Binding IsLoading}"/>
+
+        
         <ScrollView>
             <StackLayout Orientation="Vertical"
                          Spacing="5"
@@ -71,7 +75,6 @@
                         <Stepper x:Name="stepper"
                                  Increment="1"
                                  Minimum="1"
-                                 Maximum="{Binding Product.Quantity}"
                                  Value="{Binding Stepper}"/>
                         <Label Text="{Binding Stepper}"
                                VerticalTextAlignment="Center"/>

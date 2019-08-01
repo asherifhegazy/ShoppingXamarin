@@ -1,4 +1,5 @@
-﻿using eShopApp.Services;
+﻿using eShopApp.Renderers;
+using eShopApp.Services;
 using eShopApp.Views;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,11 @@ namespace eShopApp.ViewModels
 
         private async void OnLoginCommand()
         {
-            var result = _userService.IsUserExists(Username);
+            IsLoading = true;
+
+            var result = await _userService.IsUserExists(Username);
+
+            IsLoading = false;
 
             if (result)
             {
@@ -51,7 +56,7 @@ namespace eShopApp.ViewModels
                 await _pageService.PushAsync(new ProductsPage());
             }
             else
-                await _pageService.DisplayAlert("Login", "Username Isn't correct", "OK", "Cancel");
+                DependencyService.Get<IToast>().ShowShortMessage("Username Isn't correct");
         }
 
     }

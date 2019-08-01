@@ -12,7 +12,21 @@ namespace eShopApp.ViewModels
 {
     public class ProductDetailsPageViewModel : BaseViewModel
     {
-        public Product Product { get; set; }
+        Product product;
+
+        public Product Product
+        {
+            get => product;
+
+            set
+            {
+                if (product != value)
+                {
+                    SetValue(ref product, value);
+                    OnPropertyChanged(nameof(Product));
+                }
+            }
+        }
 
         private readonly IProductService _productService;
         private readonly ICartSerivce _cartService;
@@ -37,34 +51,51 @@ namespace eShopApp.ViewModels
 
         public ICommand AddToCartCommand { get; set; }
 
-        public ProductDetailsPageViewModel(int productId, IProductService productService, ICartSerivce cartSerivce, IUserService userService, IPageService pageService)
+        public ProductDetailsPageViewModel(IProductService productService, ICartSerivce cartSerivce, IUserService userService, IPageService pageService)
         {
             _productService = productService;
             _cartService = cartSerivce;
             _userService = userService;
             _pageService = pageService;
 
-            Product = _productService.GetProductById(productId);
-
             AddToCartCommand = new Command(OnAddToCartCommand);
         }
 
         private async void OnAddToCartCommand()
         {
+            IsLoading = true;
+
             var cartItem = new CartItem
             {
-                UserId = _userService.GetUserIdByUsername(Global.UserName.ToString()),
+                UserId = await _userService.GetUserIdByUsername(Global.UserName.ToString()),
                 ProductId = Product.Id,
                 Product = Product,
                 Quantity = stepper,
                 CreatedDate = DateTime.Now
             };
 
-            _cartService.AddCartItem(cartItem);
+            var isAdded = await _cartService.AddCartItem(cartItem);
 
-            //DependencyService.Get<IToast>().ShowShortMessage("Cart updated successfully");
+            IsLoading = false;
 
-            await _pageService.PushAsync(new ProductsPage());
+            if (isAdded)
+            {
+                DependencyService.Get<IToast>().ShowShortMessage("Cart updated successfully");
+                await _pageService.PushAsync(new ProductsPage());
+            }
+            else
+            {
+                DependencyService.Get<IToast>().ShowShortMessage("Something Went Wrong");
+            }
+        }
+
+        public async void OnAppearing(int productId)
+        {
+            IsLoading = true;
+
+            Product = await _productService.GetProductById(productId);
+
+            IsLoading = false;
         }
     }
 }
