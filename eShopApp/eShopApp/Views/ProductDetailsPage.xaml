@@ -75,7 +75,6 @@
                         <Stepper x:Name="stepper"
                                  Increment="1"
                                  Minimum="1"
-                                 Maximum="{Binding Product.Quantity}"
                                  Value="{Binding Stepper}"/>
                         <Label Text="{Binding Stepper}"
                                VerticalTextAlignment="Center"/>
