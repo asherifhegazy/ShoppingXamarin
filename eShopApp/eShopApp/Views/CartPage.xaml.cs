@@ -30,5 +30,10 @@ namespace eShopApp.Views
 
             CartPageViewModel.OnAppearing();
         }
+
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            listView.SelectedItem = null;
+        }
     }
 }

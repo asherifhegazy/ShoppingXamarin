@@ -49,9 +49,11 @@
                        Grid.Column="2"/>
             </Grid>
 
-            <ListView ItemsSource="{Binding CartItems}"
+            <ListView x:Name="listView"
+                      ItemsSource="{Binding CartItems}"
                       HasUnevenRows="True"
-                      HorizontalOptions="FillAndExpand">
+                      HorizontalOptions="FillAndExpand"
+                      ItemSelected="ListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
