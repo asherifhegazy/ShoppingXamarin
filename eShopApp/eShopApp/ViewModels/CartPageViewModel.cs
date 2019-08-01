@@ -1,6 +1,7 @@
 ﻿using eShopApp.Models;
 using eShopApp.Renderers;
 using eShopApp.Services;
+using eShopApp.ViewModels.Shared;
 using eShopApp.Views;
 using System;
 using System.Collections.Generic;
@@ -29,28 +30,11 @@ namespace eShopApp.ViewModels
             }
         }
 
-        //bool isSubmitEnabled = false;
-
-        //public bool IsSubmitEnabled
-        //{
-        //    get => isSubmitEnabled;
-
-        //    set
-        //    {
-        //        if (isSubmitEnabled != value)
-        //        {
-        //            SetValue(ref isSubmitEnabled, value);
-        //            OnPropertyChanged(nameof(IsSubmitEnabled));
-        //        }
-        //    }
-        //}
-
         private readonly ICartSerivce _cartService;
         private readonly IUserService _userService;
         private readonly IOrderService _orderService;
         private readonly IPageService _pageService;
 
-        public ICommand DeleteItemCommand { get; set; }
         public ICommand SubmitCommand { get; set; }
 
         public CartPageViewModel(ICartSerivce cartSerivce, IUserService userService, IOrderService orderService, IPageService pageService)
@@ -60,13 +44,15 @@ namespace eShopApp.ViewModels
             _orderService = orderService;
             _pageService = pageService;
 
-            DeleteItemCommand = new Command(OnDeleteItemCommand);
+            MessagingCenter.Subscribe<CartItemViewViewModel, CartItem>(this, "CartItemsChanged", OnNumerOfCartItemsChanged);
+
+
             SubmitCommand = new Command(OnSubmitCommand);
         }
 
-        private void OnDeleteItemCommand()
+        private void OnNumerOfCartItemsChanged(CartItemViewViewModel source, CartItem newValue)
         {
-            _cartService.RemoveItemFromCart(null);
+            CartItems.Remove(newValue);
         }
 
         private async void OnSubmitCommand()

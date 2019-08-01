@@ -3,20 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:eShopApp.Converters"
              mc:Ignorable="d"
              x:Class="eShopApp.Views.CartPage"
              NavigationPage.HasNavigationBar="False"
              xmlns:shared="clr-namespace:eShopApp.Views.Shared">
-
-    <Page.Resources>
-        <ResourceDictionary>
-            <local:BoolToStringCartItemConverter x:Key="BoolStringItemConverter"/>
-            <local:BoolToColorConverter x:Key="BoolColorConverter"/>
-            <local:DecimalToStringConverter x:Key="DecimalStringConverter"/>
-            <local:IntToBoolConverter x:Key="IntBoolConverter"/>
-        </ResourceDictionary>
-    </Page.Resources>
 
     <StackLayout Orientation="Vertical"
                  Spacing="5">
@@ -56,8 +46,9 @@
                       ItemSelected="ListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Grid>
+                        <ViewCell x:Name="item">
+                            <shared:CartItemView CartItem="{Binding Source={x:Reference item}, Path=BindingContext}"/>
+                            <!--<Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -65,51 +56,49 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                
+                                <Image Source="{Binding Product.ImagePosterUrl}"
+                                        WidthRequest="100"
+                                        Grid.Column="0"/>
 
-                                    <Image Source="{Binding Product.ImagePosterUrl}"
-                                           WidthRequest="100"
-                                           Grid.Column="0"/>
+                                <StackLayout Orientation="Vertical"
+                                                Spacing="7"
+                                                Grid.Column="1">
 
-                                    <StackLayout Orientation="Vertical"
-                                                 Spacing="7"
-                                                 Grid.Column="1">
+                                    <Label Text="{Binding Product.Name}"
+                                            FontSize="Medium"
+                                            TextColor="Black"/>
 
-                                        <Label Text="{Binding Product.Name}"
-                                               FontSize="Medium"
-                                               TextColor="Black"/>
+                                    <Label Text="{Binding IsAvailable,
+                                                            Converter={StaticResource BoolStringItemConverter}}"
+                                            TextColor="{Binding IsAvailable,
+                                                                Converter={StaticResource BoolColorConverter}}"
+                                            FontSize="Micro"/>
 
-                                        <Label Text="{Binding IsAvailable,
-                                                              Converter={StaticResource BoolStringItemConverter}}"
-                                               TextColor="{Binding IsAvailable,
-                                                                   Converter={StaticResource BoolColorConverter}}"
-                                               FontSize="Micro"/>
-
-                                        <Label Text="Delete"
-                                               TextColor="Blue"
-                                               BackgroundColor="Transparent"
-                                               HorizontalOptions="Start">
+                                    <Label Text="Delete"
+                                            TextColor="Blue"
+                                            BackgroundColor="Transparent"
+                                            HorizontalOptions="Start">
                                             <Label.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding DeleteItemCommand}"/>
+                                                <TapGestureRecognizer BindingContext="{Reference listView}" Command="{Binding DeleteItemCommand}"/>
                                             </Label.GestureRecognizers>
-                                        </Label>
+                                    </Label>
 
-                                    </StackLayout>
+                                </StackLayout>
 
                                 <Label Text="{Binding Product.Price,
-                                                      Converter={StaticResource DecimalStringConverter}}"
-                                       FontSize="Medium"
-                                       FontAttributes="Bold"
-                                       VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center"
-                                       Grid.Column="2"/>
+                                                        Converter={StaticResource DecimalStringConverter}}"
+                                        FontSize="Medium"
+                                        FontAttributes="Bold"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Grid.Column="2"/>
 
                                 <Label Text="{Binding Quantity}"
-                                       FontSize="Large"
-                                       VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center"
-                                       Grid.Column="3"/>
-                            </Grid>
+                                        FontSize="Large"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Grid.Column="3"/>
+                            </Grid>-->
 
                         </ViewCell>
                     </DataTemplate>
@@ -117,7 +106,7 @@
             </ListView>
 
         </StackLayout>
-        
+
         <Button Text="Submit"
                 TextColor="Black"
                 FontSize="Small"

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="eShopApp.Views.Shared.CartItemView"
+             x:Name="cartbta3">
+
+    <StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="{Binding CartItem.Product.ImagePosterUrl}"
+                    WidthRequest="100"
+                    Grid.Column="0"/>
+
+            <StackLayout Orientation="Vertical"
+                        Spacing="7"
+                        Grid.Column="1">
+
+                <Label Text="{Binding CartItem.Product.Name}"
+                        FontSize="Medium"
+                        TextColor="Black"/>
+
+                <Label Text="{Binding CartItem.IsAvailable,
+                                        Converter={StaticResource BoolStringItemConverter}}"
+                        TextColor="{Binding CartItem.IsAvailable,
+                                            Converter={StaticResource BoolColorConverter}}"
+                        FontSize="Micro"/>
+
+                <Label Text="Delete"
+                        TextColor="Blue"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="Start">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding DeleteItemCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </StackLayout>
+
+            <Label Text="{Binding CartItem.Product.Price,
+                                    Converter={StaticResource DecimalStringConverter}}"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Grid.Column="2"/>
+
+            <Label Text="{Binding CartItem.Quantity}"
+                    FontSize="Large"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Grid.Column="3"/>
+        </Grid>
+    </StackLayout>
+</ContentView>

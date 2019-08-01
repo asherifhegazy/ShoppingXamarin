@@ -10,12 +10,6 @@
              xmlns:shared="clr-namespace:eShopApp.Views.Shared"
              xmlns:toast="clr-namespace:eShopApp.Renderers"
              xmlns:carousel="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView">
-
-    <Page.Resources>
-        <ResourceDictionary>
-            <local:DecimalToStringConverter x:Key="DecimalStringConverter"/>
-        </ResourceDictionary>
-    </Page.Resources>
     
     <StackLayout Orientation="Vertical">
         <shared:Navbar />

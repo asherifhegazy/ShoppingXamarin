@@ -1,4 +1,5 @@
-﻿using eShopApp.Services;
+﻿using eShopApp.Models;
+using eShopApp.Services;
 using eShopApp.Views;
 using eShopApp.Views.Modals;
 using System;
@@ -63,6 +64,8 @@ namespace eShopApp.ViewModels.Shared
 
             OnAppearing();
 
+            MessagingCenter.Subscribe<CartItemViewViewModel, CartItem>(this, "CartItemsChanged", OnNumerOfCartItemsChanged);
+
             CartCommand = new Command(OnCartCommand);
             DotsCommand = new Command(OnDotsCommand);
         }
@@ -109,6 +112,11 @@ namespace eShopApp.ViewModels.Shared
             var userId = await _userService.GetUserIdByUsername(username);
 
             NumberOfCartItems = await _cartService.GetNumberOfCartItems(userId);
+        }
+
+        private void OnNumerOfCartItemsChanged(CartItemViewViewModel source, CartItem newValue)
+        {
+            NumberOfCartItems -= newValue.Quantity;
         }
     }
 }
