@@ -11,23 +11,23 @@ namespace eShopApp
             return App.Current.Properties.ContainsKey(key);
         }
 
-        private static string GetProperty(string key)
+        private static object GetProperty(string key)
         {
             if (IsPropertyExists(key))
             {
-                return App.Current.Properties[key].ToString();
+                return App.Current.Properties[key];
             }
 
             return null;
         }
 
-        private static void SetProperty(string key, string value)
+        private static void SetProperty(string key, object value)
         {
             App.Current.Properties[key] = value;
             App.Current.SavePropertiesAsync();
         }
 
-        public static string UserName
+        public static object UserName
         {
             get
             {
@@ -37,6 +37,32 @@ namespace eShopApp
             set
             {
                 SetProperty("Username", value);
+            }
+        }
+
+        public static object FilterMinPrice
+        {
+            get
+            {
+                return GetProperty("FilterMinPrice");
+
+            }
+            set
+            {
+                SetProperty("FilterMinPrice", value);
+            }
+        }
+
+        public static object FilterMaxPrice
+        {
+            get
+            {
+                return GetProperty("FilterMaxPrice");
+
+            }
+            set
+            {
+                SetProperty("FilterMaxPrice", value);
             }
         }
     }

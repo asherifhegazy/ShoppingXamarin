@@ -25,6 +25,12 @@ namespace eShopApp.Views
             ProductsPageViewModel.OnItemSelectedCommand.Execute(e.Item);
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ProductsPageViewModel.OnAppearing();
+        }
+
         protected override bool OnBackButtonPressed()
         {
             return true;

@@ -41,10 +41,10 @@
                    HeightRequest="20"
                    Margin="0,0,15,0"
                    Padding="0"
-                   IsVisible="True"
+                   IsVisible="{Binding NumberOfCartItems}"
                    Grid.Column="0"
                    Grid.Row="0">
-                <Label Text="3"
+                <Label Text="{Binding NumberOfCartItems}"
                        FontSize="Micro"
                        TextColor="White"
                        HorizontalOptions="Center"

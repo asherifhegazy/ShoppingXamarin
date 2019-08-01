@@ -9,6 +9,8 @@ namespace eShopApp.Services
     {
         IList<Product> GetProductsOrderedByPrice();
 
+        IList<Product> GetProductsOrderedByPriceAndFiltered(int minPrice, int maxPrice);
+
         Product GetProductById(int id);
     }
 }

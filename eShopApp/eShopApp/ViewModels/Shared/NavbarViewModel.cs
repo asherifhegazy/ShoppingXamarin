@@ -1,4 +1,6 @@
-﻿using eShopApp.Views;
+﻿using eShopApp.Services;
+using eShopApp.Views;
+using eShopApp.Views.Modals;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,19 +13,29 @@ namespace eShopApp.ViewModels.Shared
     {
         public string Username { get; set; }
 
+        public int NumberOfCartItems { get; set; }
+
         public ICommand DotsCommand { get; set; }
 
         public ICommand CartCommand { get; set; }
 
         public bool IsFilterEnabled { get; set; }
 
+        private readonly ICartSerivce _cartService;
+        private readonly IUserService _userService;
         private readonly IPageService _pageService;
 
-        public NavbarViewModel(IPageService pageService)
+        public NavbarViewModel(ICartSerivce cartSerivce, IUserService userService, IPageService pageService)
         {
-            Username = Global.UserName;
+            Username = Global.UserName.ToString();
 
+            _cartService = cartSerivce;
+            _userService = userService;
             _pageService = pageService;
+
+            var userId = _userService.GetUserIdByUsername(Username);
+
+            NumberOfCartItems = _cartService.GetNumberOfCartItems(userId);
 
             CartCommand = new Command(OnCartCommand);
             DotsCommand = new Command(OnDotsCommand);
@@ -31,8 +43,7 @@ namespace eShopApp.ViewModels.Shared
 
         private async void OnCartCommand()
         {
-            await _pageService.DisplayAlert("cart","cart","ok","cancel");
-            //await _pageService.PushAsync(null);
+            await _pageService.PushAsync(new CartPage());
         }
 
         private async void OnDotsCommand()
@@ -52,6 +63,7 @@ namespace eShopApp.ViewModels.Shared
                     break;
 
                 case "Filter":
+                    await _pageService.PushModalAsync(new FilterModalPage());
                     break;
 
                 case "Sync":

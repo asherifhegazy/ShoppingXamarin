@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="eShopApp.Views.Modals.FilterModalPage"
+             xmlns:local="clr-namespace:eShopApp.Converters">
+    <Page.Resources>
+        <ResourceDictionary>
+            <local:DecimalToStringConverter x:Key="DecimalStringConverter"/>
+        </ResourceDictionary>
+    </Page.Resources>
+    <StackLayout Orientation="Vertical"
+                 Spacing="10"
+                 VerticalOptions="Center"
+                 Padding="50,0,50,0">
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Min. Price"
+                   FontSize="Medium"
+                   TextColor="Black"
+                   HorizontalOptions="StartAndExpand"/>
+
+            <Label Text="{Binding MinPrice,
+                                  Converter={StaticResource DecimalStringConverter}}"
+                   FontSize="Medium"
+                   TextColor="Black"
+                   HorizontalOptions="End"/>
+        </StackLayout>
+
+        <Slider Maximum="999"
+                Minimum="1"
+                Value="{Binding MinPrice}"/>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Max. Price"
+                   FontSize="Medium"
+                   TextColor="Black"
+                   HorizontalOptions="StartAndExpand"/>
+
+            <Label Text="{Binding MaxPrice,
+                                  Converter={StaticResource DecimalStringConverter}}"
+                   FontSize="Medium"
+                   TextColor="Black"
+                   HorizontalOptions="End"/>
+        </StackLayout>
+
+        <Slider Maximum="999"
+                Minimum="1"
+                Value="{Binding MaxPrice}"/>
+
+        <Button Text="Apply Filter"
+                BackgroundColor="#A1FF75"
+                BorderColor="DimGray"
+                BorderWidth="2"
+                Margin="0,30,0,0"
+                Command="{Binding ApplyFilterCommand}"/>
+
+        <Button Text="Clear Filter"
+                BackgroundColor="Crimson"
+                BorderColor="DimGray"
+                BorderWidth="2"
+                Margin="0,30,0,0"
+                Command="{Binding ClearFilterCommand}"/>
+
+    </StackLayout>
+</ContentPage>
