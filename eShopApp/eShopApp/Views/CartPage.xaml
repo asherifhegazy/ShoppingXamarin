@@ -59,20 +59,21 @@
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <StackLayout Orientation="Horizontal"
-                                             Spacing="5"
-                                             Grid.Column="0">
+                                
 
                                     <Image Source="{Binding Product.ImagePosterUrl}"
-                                           WidthRequest="100"/>
+                                           WidthRequest="100"
+                                           Grid.Column="0"/>
 
                                     <StackLayout Orientation="Vertical"
-                                                 Spacing="7">
+                                                 Spacing="7"
+                                                 Grid.Column="1">
 
                                         <Label Text="{Binding Product.Name}"
                                                FontSize="Medium"
@@ -95,20 +96,19 @@
 
                                     </StackLayout>
 
-                                </StackLayout>
                                 <Label Text="{Binding Product.Price,
                                                       Converter={StaticResource DecimalStringConverter}}"
                                        FontSize="Medium"
                                        FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="Center"
-                                       Grid.Column="1"/>
+                                       Grid.Column="2"/>
 
                                 <Label Text="{Binding Quantity}"
                                        FontSize="Large"
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="Center"
-                                       Grid.Column="2"/>
+                                       Grid.Column="3"/>
                             </Grid>
 
                         </ViewCell>
