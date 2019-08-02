@@ -1,4 +1,5 @@
-﻿using eShopApp.Models;
+﻿using CommonServiceLocator;
+using eShopApp.Models;
 using eShopApp.Services;
 using eShopApp.ViewModels.Shared;
 using System;
@@ -49,7 +50,8 @@ namespace eShopApp.Views.Shared
         {
             InitializeComponent();
 
-            CartItemViewViewModel = new CartItemViewViewModel(new CartService());
+            //CartItemViewViewModel = new CartItemViewViewModel(new CartService());
+            CartItemViewViewModel = ServiceLocator.Current.GetInstance<CartItemViewViewModel>();
 
             BindingContext = CartItemViewViewModel;
         }

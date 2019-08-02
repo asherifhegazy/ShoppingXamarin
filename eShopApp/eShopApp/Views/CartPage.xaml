@@ -48,57 +48,6 @@
                     <DataTemplate>
                         <ViewCell x:Name="item">
                             <shared:CartItemView CartItem="{Binding Source={x:Reference item}, Path=BindingContext}"/>
-                            <!--<Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Image Source="{Binding Product.ImagePosterUrl}"
-                                        WidthRequest="100"
-                                        Grid.Column="0"/>
-
-                                <StackLayout Orientation="Vertical"
-                                                Spacing="7"
-                                                Grid.Column="1">
-
-                                    <Label Text="{Binding Product.Name}"
-                                            FontSize="Medium"
-                                            TextColor="Black"/>
-
-                                    <Label Text="{Binding IsAvailable,
-                                                            Converter={StaticResource BoolStringItemConverter}}"
-                                            TextColor="{Binding IsAvailable,
-                                                                Converter={StaticResource BoolColorConverter}}"
-                                            FontSize="Micro"/>
-
-                                    <Label Text="Delete"
-                                            TextColor="Blue"
-                                            BackgroundColor="Transparent"
-                                            HorizontalOptions="Start">
-                                            <Label.GestureRecognizers>
-                                                <TapGestureRecognizer BindingContext="{Reference listView}" Command="{Binding DeleteItemCommand}"/>
-                                            </Label.GestureRecognizers>
-                                    </Label>
-
-                                </StackLayout>
-
-                                <Label Text="{Binding Product.Price,
-                                                        Converter={StaticResource DecimalStringConverter}}"
-                                        FontSize="Medium"
-                                        FontAttributes="Bold"
-                                        VerticalTextAlignment="Center"
-                                        HorizontalTextAlignment="Center"
-                                        Grid.Column="2"/>
-
-                                <Label Text="{Binding Quantity}"
-                                        FontSize="Large"
-                                        VerticalTextAlignment="Center"
-                                        HorizontalTextAlignment="Center"
-                                        Grid.Column="3"/>
-                            </Grid>-->
 
                         </ViewCell>
                     </DataTemplate>
@@ -117,8 +66,7 @@
                 BorderWidth="2" 
                 Padding="10,0,10,0"
                 Margin="0,0,10,10"
-                IsEnabled="{Binding CartItems.Count,
-                                    Converter={StaticResource IntBoolConverter}}"
-                Command="{Binding SubmitCommand}"/>
+                Command="{Binding SubmitCommand}"
+                IsEnabled="{Binding IsSubmitEnabled}"/>
     </StackLayout>
 </ContentPage>

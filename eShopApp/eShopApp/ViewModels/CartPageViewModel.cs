@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace eShopApp.ViewModels
@@ -30,6 +31,22 @@ namespace eShopApp.ViewModels
             }
         }
 
+        bool isSubmitEnabled;
+
+        public bool IsSubmitEnabled
+        {
+            get => isSubmitEnabled;
+
+            set
+            {
+                if (isSubmitEnabled != value)
+                {
+                    SetValue(ref isSubmitEnabled, value);
+                    OnPropertyChanged(nameof(IsSubmitEnabled));
+                }
+            }
+        }
+
         private readonly ICartSerivce _cartService;
         private readonly IUserService _userService;
         private readonly IOrderService _orderService;
@@ -46,18 +63,25 @@ namespace eShopApp.ViewModels
 
             MessagingCenter.Subscribe<CartItemViewViewModel, CartItem>(this, "CartItemsChanged", OnNumerOfCartItemsChanged);
 
-
             SubmitCommand = new Command(OnSubmitCommand);
         }
 
         private void OnNumerOfCartItemsChanged(CartItemViewViewModel source, CartItem newValue)
         {
             CartItems.Remove(newValue);
+            if (CartItems.Count == 0)
+                IsSubmitEnabled = false;
         }
 
         private async void OnSubmitCommand()
         {
             IsLoading = true;
+            IsSubmitEnabled = false;
+
+            bool isOutOfOrder = CartItems.Any(ci => !ci.IsAvailable);
+
+            if (isOutOfOrder)
+                await _pageService.DisplayAlert("Warning", "Some items are out of order it will be in your cart until you delete it", "Ok", "Cancel");
 
             var userId = await _userService.GetUserIdByUsername(Global.UserName.ToString());
 
@@ -65,14 +89,13 @@ namespace eShopApp.ViewModels
 
             if (isSubmitted)
             {
-                //await _pageService.DisplayAlert("Success", "Order Was Submitted Successfully", "OK", "Cancel");
                 DependencyService.Get<IToast>().ShowShortMessage("Order Submitted successfully");
                 await _pageService.PushAsync(new ProductsPage());
             }
             else
             {
                 DependencyService.Get<IToast>().ShowShortMessage("Something Went Wrong");
-                //await _pageService.DisplayAlert("Failed", "Something Went Wrong", "OK", "Cancel");
+                IsSubmitEnabled = true;
             }
 
             IsLoading = false;
@@ -80,6 +103,8 @@ namespace eShopApp.ViewModels
 
         public async void OnAppearing()
         {
+            IsSubmitEnabled = false;
+
             CartItems = new ObservableCollection<CartItem>();
 
             IsLoading = true;
@@ -90,10 +115,22 @@ namespace eShopApp.ViewModels
 
             IsLoading = false;
 
+
+            bool isOutOfOrder = CartItems.Any(ci => !ci.IsAvailable);
+
             if (CartItems.Count == 0)
+            {
                 DependencyService.Get<IToast>().ShowShortMessage("Cart is Empty");
-                //await _pageService.DisplayAlert("Warning", "Cart is Empty", "OK", "Cancel");
-            //IsSubmitEnabled = false;
+                IsSubmitEnabled = false;
+            }
+            else if (CartItems.Count == 1 && isOutOfOrder)
+            {
+                await _pageService.DisplayAlert("Warning", "Some items are out of order it will be in your cart until you delete it", "Ok", "Cancel");
+
+                IsSubmitEnabled = false;
+            }
+            else
+                IsSubmitEnabled = true;
         }
     }
 }
