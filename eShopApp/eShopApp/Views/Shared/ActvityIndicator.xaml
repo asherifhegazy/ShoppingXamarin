@@ -6,10 +6,6 @@
              mc:Ignorable="d"
              x:Class="eShopApp.Views.Shared.ActvityIndicator">
     
-    <AbsoluteLayout>
         <ActivityIndicator IsRunning="True"  
-                           BackgroundColor="Transparent"
-                           AbsoluteLayout.LayoutBounds="0.5, 0.5, 20, 20"
-                           AbsoluteLayout.LayoutFlags="PositionProportional"/>
-    </AbsoluteLayout>
+                           BackgroundColor="Transparent"/>
 </ContentView>
