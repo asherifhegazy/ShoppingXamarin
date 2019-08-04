@@ -31,7 +31,10 @@
 
         <Slider Maximum="999"
                 Minimum="1"
-                Value="{Binding MinPrice}"/>
+                Value="{Binding MinPrice}"
+                MinimumTrackColor="Accent"
+                MaximumTrackColor="Gray"
+                ThumbColor="CornflowerBlue"/>
 
         <StackLayout Orientation="Horizontal">
             <Label Text="Max. Price"
@@ -48,7 +51,10 @@
 
         <Slider Maximum="999"
                 Minimum="1"
-                Value="{Binding MaxPrice}"/>
+                Value="{Binding MaxPrice}"
+                MinimumTrackColor="Accent"
+                MaximumTrackColor="Gray"
+                ThumbColor="CornflowerBlue"/>
 
         <Button Text="Apply Filter"
                 BackgroundColor="#A1FF75"
