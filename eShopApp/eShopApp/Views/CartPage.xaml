@@ -12,113 +12,70 @@
                  Spacing="5">
         <shared:Navbar />
 
-        <shared:ActvityIndicator IsVisible="{Binding IsLoading}"/>
+        <AbsoluteLayout>
 
-        <StackLayout VerticalOptions="StartAndExpand"
-                     Padding="7,0,7,0">
-            <Grid Margin="0,10,10,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
+            <shared:ActvityIndicator IsVisible="{Binding IsLoading}"
+                                     AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                                     AbsoluteLayout.LayoutFlags="All"/>
 
-                <Label Text="Price"
-                       FontSize="Small"
-                       TextColor="Black"
-                       HorizontalTextAlignment="Center"
-                       Grid.Column="1"/>
+            <StackLayout VerticalOptions="StartAndExpand"
+                         Padding="7,0,7,0"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="All">
+                <Grid Margin="0,10,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
 
-                <Label Text="Quantity"
-                       FontSize="Small"
-                       TextColor="Black"
-                       HorizontalTextAlignment="Center"
-                       Grid.Column="2"/>
-            </Grid>
+                    <Label Text="Price"
+                           FontSize="Small"
+                           TextColor="Black"
+                           HorizontalTextAlignment="Center"
+                           Grid.Column="1"/>
 
-            <ListView x:Name="listView"
-                      ItemsSource="{Binding CartItems}"
-                      HasUnevenRows="True"
-                      HorizontalOptions="FillAndExpand"
-                      ItemSelected="ListView_ItemSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell x:Name="item">
-                            <shared:CartItemView CartItem="{Binding Source={x:Reference item}, Path=BindingContext}"/>
-                            <!--<Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                    <Label Text="Quantity"
+                           FontSize="Small"
+                           TextColor="Black"
+                           HorizontalTextAlignment="Center"
+                           Grid.Column="2"/>
+                </Grid>
 
-                                <Image Source="{Binding Product.ImagePosterUrl}"
-                                        WidthRequest="100"
-                                        Grid.Column="0"/>
+                <ListView x:Name="listView"
+                          ItemsSource="{Binding CartItems}"
+                          HasUnevenRows="True"
+                          HorizontalOptions="FillAndExpand"
+                          ItemSelected="ListView_ItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell x:Name="item">
+                                <shared:CartItemView CartItem="{Binding Source={x:Reference item}, Path=BindingContext}"/>
 
-                                <StackLayout Orientation="Vertical"
-                                                Spacing="7"
-                                                Grid.Column="1">
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-                                    <Label Text="{Binding Product.Name}"
-                                            FontSize="Medium"
-                                            TextColor="Black"/>
+            </StackLayout>
+            <Button Text="Submit"
+                    TextColor="Black"
+                    FontSize="Small"
+                    BackgroundColor="#A1FF75"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    BorderColor="DimGray"
+                    BorderWidth="2" 
+                    Padding="10,0,10,0"
+                    Margin="0,0,10,10"
+                    Command="{Binding SubmitCommand}"
+                    IsEnabled="{Binding IsSubmitEnabled}"
+                    AbsoluteLayout.LayoutBounds="0.9,0.9,1,1"
+                    AbsoluteLayout.LayoutFlags="All"/>
+        </AbsoluteLayout>
 
-                                    <Label Text="{Binding IsAvailable,
-                                                            Converter={StaticResource BoolStringItemConverter}}"
-                                            TextColor="{Binding IsAvailable,
-                                                                Converter={StaticResource BoolColorConverter}}"
-                                            FontSize="Micro"/>
-
-                                    <Label Text="Delete"
-                                            TextColor="Blue"
-                                            BackgroundColor="Transparent"
-                                            HorizontalOptions="Start">
-                                            <Label.GestureRecognizers>
-                                                <TapGestureRecognizer BindingContext="{Reference listView}" Command="{Binding DeleteItemCommand}"/>
-                                            </Label.GestureRecognizers>
-                                    </Label>
-
-                                </StackLayout>
-
-                                <Label Text="{Binding Product.Price,
-                                                        Converter={StaticResource DecimalStringConverter}}"
-                                        FontSize="Medium"
-                                        FontAttributes="Bold"
-                                        VerticalTextAlignment="Center"
-                                        HorizontalTextAlignment="Center"
-                                        Grid.Column="2"/>
-
-                                <Label Text="{Binding Quantity}"
-                                        FontSize="Large"
-                                        VerticalTextAlignment="Center"
-                                        HorizontalTextAlignment="Center"
-                                        Grid.Column="3"/>
-                            </Grid>-->
-
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-        </StackLayout>
-
-        <Button Text="Submit"
-                TextColor="Black"
-                FontSize="Small"
-                BackgroundColor="#A1FF75"
-                HorizontalOptions="End"
-                VerticalOptions="End"
-                BorderColor="DimGray"
-                BorderWidth="2" 
-                Padding="10,0,10,0"
-                Margin="0,0,10,10"
-                IsEnabled="{Binding CartItems.Count,
-                                    Converter={StaticResource IntBoolConverter}}"
-                Command="{Binding SubmitCommand}"/>
     </StackLayout>
 </ContentPage>

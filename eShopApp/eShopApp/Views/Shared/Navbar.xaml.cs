@@ -1,4 +1,5 @@
-﻿using eShopApp.Services;
+﻿using CommonServiceLocator;
+using eShopApp.Services;
 using eShopApp.ViewModels;
 using eShopApp.ViewModels.Shared;
 using System;
@@ -34,7 +35,8 @@ namespace eShopApp.Views.Shared
         {
             InitializeComponent();
 
-            NavbarViewModel = new NavbarViewModel(new CartService(), new UserService(), new PageService());
+            //NavbarViewModel = new NavbarViewModel(new CartService(), new UserService(), new PageService());
+            NavbarViewModel = ServiceLocator.Current.GetInstance<NavbarViewModel>();
 
             BindingContext = NavbarViewModel;
         }

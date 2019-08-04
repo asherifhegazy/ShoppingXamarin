@@ -1,4 +1,5 @@
-﻿using eShopApp.Services;
+﻿using CommonServiceLocator;
+using eShopApp.Services;
 using eShopApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +14,8 @@ namespace eShopApp.Views
         {
             InitializeComponent();
 
-            ProductsPageViewModel = new ProductsPageViewModel(new ProductService(),new PageService());
+            //ProductsPageViewModel = new ProductsPageViewModel(new ProductService(),new PageService());
+            ProductsPageViewModel = ServiceLocator.Current.GetInstance<ProductsPageViewModel>();
 
             BindingContext = ProductsPageViewModel;
 

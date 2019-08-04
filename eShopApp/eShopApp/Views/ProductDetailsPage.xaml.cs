@@ -1,4 +1,5 @@
-﻿using eShopApp.Services;
+﻿using CommonServiceLocator;
+using eShopApp.Services;
 using eShopApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,8 @@ namespace eShopApp.Views
 
             _productId = id;
 
-            ProductDetailsPageViewModel = new ProductDetailsPageViewModel(new ProductService(), new CartService(), new UserService(), new PageService());
+            //ProductDetailsPageViewModel = new ProductDetailsPageViewModel(new ProductService(), new CartService(), new UserService(), new PageService());
+            ProductDetailsPageViewModel = ServiceLocator.Current.GetInstance<ProductDetailsPageViewModel>();
 
             BindingContext = ProductDetailsPageViewModel;
         }

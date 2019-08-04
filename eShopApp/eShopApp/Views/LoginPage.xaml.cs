@@ -1,4 +1,5 @@
-﻿using eShopApp.Services;
+﻿using CommonServiceLocator;
+using eShopApp.Services;
 using eShopApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +14,8 @@ namespace eShopApp.Views
         {
             InitializeComponent();
 
-            LoginPageViewModel = new LoginPageViewModel(new UserService(), new PageService());
+            //LoginPageViewModel = new LoginPageViewModel(new UserService(), new PageService());
+            LoginPageViewModel = ServiceLocator.Current.GetInstance<LoginPageViewModel>();
 
             BindingContext = LoginPageViewModel;
         }

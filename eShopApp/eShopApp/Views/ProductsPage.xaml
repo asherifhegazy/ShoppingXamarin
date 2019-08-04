@@ -12,45 +12,52 @@
     <StackLayout Orientation="Vertical">
 
         <shared:Navbar IsFilterEnabled="True"/>
+        <AbsoluteLayout>
 
-        <shared:ActvityIndicator IsVisible="{Binding IsLoading}"/>
+            <shared:ActvityIndicator IsVisible="{Binding IsLoading}"
+                                  AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                                  AbsoluteLayout.LayoutFlags="All"/>
 
-        <ListView x:Name="listView"
+            <ListView x:Name="listView"
                   ItemsSource="{Binding Products}"
                   HasUnevenRows="True"
                   ItemTapped="ListView_ItemTapped"
-                  ItemSelected="ListView_ItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Padding="5,10,5,15"
+                  ItemSelected="ListView_ItemSelected"
+                  AbsoluteLayout.LayoutBounds="0,0,1,1"
+                  AbsoluteLayout.LayoutFlags="All">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="5,10,5,15"
                                      Orientation="Horizontal">
-                            <Image Source="{Binding ImagePosterUrl}"
+                                <Image Source="{Binding ImagePosterUrl}"
                                    WidthRequest="100" />
 
-                            <StackLayout Orientation="Vertical">
-                                
-                                <Label Text="{Binding Name}"
+                                <StackLayout Orientation="Vertical">
+
+                                    <Label Text="{Binding Name}"
                                         FontSize="Medium"
                                         TextColor="Black"/>
 
-                                <Label Text="{Binding Description}"
+                                    <Label Text="{Binding Description}"
                                         FontSize="Micro"
                                         TextColor="Black"
                                         MaxLines="3"
                                         LineBreakMode="TailTruncation"/>
 
-                                <Label Text="{Binding Price,
+                                    <Label Text="{Binding Price,
                                                       Converter={StaticResource DecimalStringConverter}}"
                                         FontSize="Medium"
                                         TextColor="Black"
                                         Margin="0,15,0,0"/>
+                                </StackLayout>
                             </StackLayout>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </AbsoluteLayout>
+
     </StackLayout>
 
 </ContentPage>

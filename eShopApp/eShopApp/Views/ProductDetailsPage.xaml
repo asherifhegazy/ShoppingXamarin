@@ -10,61 +10,64 @@
              xmlns:shared="clr-namespace:eShopApp.Views.Shared"
              xmlns:toast="clr-namespace:eShopApp.Renderers"
              xmlns:carousel="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView">
-    
+
     <StackLayout Orientation="Vertical">
         <shared:Navbar />
+        <AbsoluteLayout VerticalOptions="FillAndExpand">
 
-        <shared:ActvityIndicator IsVisible="{Binding IsLoading}"/>
+            <shared:ActvityIndicator IsVisible="{Binding IsLoading}"
+                                  AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                                  AbsoluteLayout.LayoutFlags="All"/>
 
-        
-        <ScrollView>
-            <StackLayout Orientation="Vertical"
+            <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">
+                <StackLayout Orientation="Vertical"
                          Spacing="5"
                          Padding="10,5,10,5">
-                <Label Text="{Binding Product.Name}"
+                    <Label Text="{Binding Product.Name}"
                        FontSize="Medium"
                        TextColor="Black"
                        HorizontalOptions="Start"/>
 
-                <carousel:CarouselView ItemsSource="{Binding Product.Images}"
+                    <carousel:CarouselView ItemsSource="{Binding Product.Images}"
                                        HeightRequest="150">
-                    <carousel:CarouselView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout>
-                                <Image Source="{Binding .}"
+                        <carousel:CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Image Source="{Binding .}"
                                        HeightRequest="150"/>
-                            </StackLayout>
-                        </DataTemplate>
-                    </carousel:CarouselView.ItemTemplate>
+                                </StackLayout>
+                            </DataTemplate>
+                        </carousel:CarouselView.ItemTemplate>
 
-                </carousel:CarouselView>
-                
+                    </carousel:CarouselView>
 
-                <Label Text="{Binding Product.Price,
+
+                    <Label Text="{Binding Product.Price,
                                       Converter={StaticResource DecimalStringConverter}}"
                        HorizontalOptions="Start"
                        FontAttributes="Bold"
                        TextColor="Black"/>
 
-                <Label Text="{Binding Product.Description}"
+                    <Label Text="{Binding Product.Description}"
                        VerticalTextAlignment="Center"
                        FontSize="Micro"
                        TextColor="Black"/>
 
-                <StackLayout Orientation="Horizontal"
+                    <StackLayout Orientation="Horizontal"
                              Margin="0,10,0,0">
 
-                    <StackLayout Orientation="Horizontal"
+                        <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="CenterAndExpand">
-                        <Stepper x:Name="stepper"
+                            <Stepper x:Name="stepper"
                                  Increment="1"
                                  Minimum="1"
                                  Value="{Binding Stepper}"/>
-                        <Label Text="{Binding Stepper}"
+                            <Label Text="{Binding Stepper}"
                                VerticalTextAlignment="Center"/>
-                    </StackLayout>
+                        </StackLayout>
 
-                    <Button Text="Add To Cart"
+                        <Button Text="Add To Cart"
                             TextColor="Black"
                             FontSize="Small"
                             BackgroundColor="#A1FF75"
@@ -72,10 +75,10 @@
                             BorderColor="DimGray"
                             BorderWidth="2"
                             Command="{Binding AddToCartCommand}"/>
+                    </StackLayout>
+
                 </StackLayout>
-                
-                
-            </StackLayout>
-        </ScrollView>
+            </ScrollView>
+        </AbsoluteLayout>
     </StackLayout>
 </ContentPage>

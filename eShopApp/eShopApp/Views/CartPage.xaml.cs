@@ -1,4 +1,5 @@
-﻿using eShopApp.Services;
+﻿using CommonServiceLocator;
+using eShopApp.Services;
 using eShopApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,8 @@ namespace eShopApp.Views
         {
             InitializeComponent();
 
-            CartPageViewModel = new CartPageViewModel(new CartService(), new UserService(), new OrderService(), new PageService());
+            //CartPageViewModel = new CartPageViewModel(new CartService(), new UserService(), new OrderService(), new PageService());
+            CartPageViewModel = ServiceLocator.Current.GetInstance<CartPageViewModel>();
 
             BindingContext = CartPageViewModel;
         }

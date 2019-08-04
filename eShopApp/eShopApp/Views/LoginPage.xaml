@@ -10,44 +10,52 @@
              NavigationPage.HasNavigationBar="False"
              xmlns:loading="clr-namespace:eShopApp.Views.Shared">
 
-    <StackLayout Spacing="10"
-                 VerticalOptions="Center"
-                 HorizontalOptions="Center"
-                 Orientation="Vertical">
+    <AbsoluteLayout>
+        <StackLayout Spacing="10"
+                     AbsoluteLayout.LayoutBounds="0.5,0.5,0.7,0.3"
+                     AbsoluteLayout.LayoutFlags="All"
+                     Orientation="Vertical">
 
-        <StackLayout Orientation="Horizontal"
-                     HorizontalOptions="Center">
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center">
 
-            <Image Source="cart.png"
-                   WidthRequest="15"
-                   HeightRequest="15"/>
+                <Image Source="cart.png"
+                       WidthRequest="15"
+                       HeightRequest="15"/>
 
-            <Label Text="eShop.com" 
-                   TextColor="Black"/>
+                <Label Text="eShop.com" 
+                       TextColor="Black"/>
+            </StackLayout>
+
+            <Entry Placeholder="Enter username..."
+                   FontSize="Micro"
+                   TextColor="Gray"
+                   BackgroundColor="White"
+                   WidthRequest="200"
+                   Text="{Binding Username}"/>
+
+            <Button x:Name="loginBtn"
+                    Text="Login"
+                    FontSize="Micro"
+                    Padding="0,5,0,5"
+                    BackgroundColor="Yellow"
+                    BorderColor="Black"
+                    BorderWidth="1"
+                    HeightRequest="30"
+                    CornerRadius="0"
+                    IsEnabled="{Binding Path=Username,
+                                        Converter={StaticResource Key=StringBoolConverter}}"
+                    Command="{Binding LoginCommand}"/>
         </StackLayout>
 
-        <Entry Placeholder="Enter username..."
-               FontSize="Micro"
-               TextColor="Gray"
-               BackgroundColor="White"
-               WidthRequest="200"
-               Text="{Binding Username}"/>
+        <ContentView BackgroundColor="Black"
+                     Opacity="0.5"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All"
+                     IsVisible="{Binding IsLoading}"/>
 
-        <Button x:Name="loginBtn"
-                Text="Login"
-                FontSize="Micro"
-                Padding="0,5,0,5"
-                BackgroundColor="Yellow"
-                BorderColor="Black"
-                BorderWidth="1"
-                HeightRequest="30"
-                CornerRadius="0"
-                IsEnabled="{Binding Path=Username,
-                                    Converter={StaticResource Key=StringBoolConverter}}"
-                Command="{Binding LoginCommand}"/>
-
-        <loading:ActvityIndicator IsVisible="{Binding IsLoading}"/>
-
-    </StackLayout>
-
+        <loading:ActvityIndicator IsVisible="{Binding IsLoading}"
+                                  AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                                  AbsoluteLayout.LayoutFlags="All"/>
+    </AbsoluteLayout>
 </ContentPage>
