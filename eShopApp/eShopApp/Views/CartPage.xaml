@@ -12,61 +12,70 @@
                  Spacing="5">
         <shared:Navbar />
 
-        <shared:ActvityIndicator IsVisible="{Binding IsLoading}"/>
+        <AbsoluteLayout>
 
-        <StackLayout VerticalOptions="StartAndExpand"
-                     Padding="7,0,7,0">
-            <Grid Margin="0,10,10,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
+            <shared:ActvityIndicator IsVisible="{Binding IsLoading}"
+                                     AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                                     AbsoluteLayout.LayoutFlags="All"/>
 
-                <Label Text="Price"
-                       FontSize="Small"
-                       TextColor="Black"
-                       HorizontalTextAlignment="Center"
-                       Grid.Column="1"/>
+            <StackLayout VerticalOptions="StartAndExpand"
+                         Padding="7,0,7,0"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="All">
+                <Grid Margin="0,10,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
 
-                <Label Text="Quantity"
-                       FontSize="Small"
-                       TextColor="Black"
-                       HorizontalTextAlignment="Center"
-                       Grid.Column="2"/>
-            </Grid>
+                    <Label Text="Price"
+                           FontSize="Small"
+                           TextColor="Black"
+                           HorizontalTextAlignment="Center"
+                           Grid.Column="1"/>
 
-            <ListView x:Name="listView"
-                      ItemsSource="{Binding CartItems}"
-                      HasUnevenRows="True"
-                      HorizontalOptions="FillAndExpand"
-                      ItemSelected="ListView_ItemSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell x:Name="item">
-                            <shared:CartItemView CartItem="{Binding Source={x:Reference item}, Path=BindingContext}"/>
+                    <Label Text="Quantity"
+                           FontSize="Small"
+                           TextColor="Black"
+                           HorizontalTextAlignment="Center"
+                           Grid.Column="2"/>
+                </Grid>
 
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                <ListView x:Name="listView"
+                          ItemsSource="{Binding CartItems}"
+                          HasUnevenRows="True"
+                          HorizontalOptions="FillAndExpand"
+                          ItemSelected="ListView_ItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell x:Name="item">
+                                <shared:CartItemView CartItem="{Binding Source={x:Reference item}, Path=BindingContext}"/>
 
-        </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-        <Button Text="Submit"
-                TextColor="Black"
-                FontSize="Small"
-                BackgroundColor="#A1FF75"
-                HorizontalOptions="End"
-                VerticalOptions="End"
-                BorderColor="DimGray"
-                BorderWidth="2" 
-                Padding="10,0,10,0"
-                Margin="0,0,10,10"
-                Command="{Binding SubmitCommand}"
-                IsEnabled="{Binding IsSubmitEnabled}"/>
+            </StackLayout>
+            <Button Text="Submit"
+                    TextColor="Black"
+                    FontSize="Small"
+                    BackgroundColor="#A1FF75"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    BorderColor="DimGray"
+                    BorderWidth="2" 
+                    Padding="10,0,10,0"
+                    Margin="0,0,10,10"
+                    Command="{Binding SubmitCommand}"
+                    IsEnabled="{Binding IsSubmitEnabled}"
+                    AbsoluteLayout.LayoutBounds="0.9,0.9,1,1"
+                    AbsoluteLayout.LayoutFlags="All"/>
+        </AbsoluteLayout>
+
     </StackLayout>
 </ContentPage>
